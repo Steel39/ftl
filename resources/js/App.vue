@@ -24,8 +24,8 @@
   
               <!-- Right: Actions -->
               <div class=" grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                <RouterLink class="antialiased font-sans text-gray-800 shadow-lg" to="/">Home</RouterLink>
-                <RouterLink class="antialiased font-sans text-gray-800 shadow-lg" to="/stocks">Stocks</RouterLink>
+                <RouterLink class="antialiased hover:shadow-blue-400 rounded-md font-sans text-gray-800 shadow-lg" to="/">Home</RouterLink>
+                <RouterLink class="antialiased hover:shadow-blue-400 rounded-md font-sans text-gray-800 shadow-lg" to="/stocks">Stocks</RouterLink>
               </div>
   
             </div>

@@ -661,6 +661,18 @@ video {
   background-color: rgb(55 65 81 / 1);
 }
 
+.bg-gray-400\/100 {
+  background-color: rgb(156 163 175 / 1);
+}
+
+.bg-gray-300\/100 {
+  background-color: rgb(209 213 219 / 1);
+}
+
+.bg-gray-200\/100 {
+  background-color: rgb(229 231 235 / 1);
+}
+
 .bg-gradient-to-l {
   background-image: linear-gradient(to left, var(--tw-gradient-stops));
 }
@@ -764,6 +776,11 @@ video {
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
+.text-indigo-700 {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -781,8 +798,50 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-gray-600 {
+  --tw-shadow-color: #4b5563;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
 .hover\:bg-cyan-800\/100:hover {
   background-color: rgb(21 94 117 / 1);
+}
+
+.hover\:bg-gray-800\/100:hover {
+  background-color: rgb(31 41 55 / 1);
+}
+
+.hover\:bg-gray-500\/100:hover {
+  background-color: rgb(107 114 128 / 1);
+}
+
+.hover\:bg-lime-500\/100:hover {
+  background-color: rgb(132 204 22 / 1);
+}
+
+.hover\:bg-lime-300\/100:hover {
+  background-color: rgb(190 242 100 / 1);
+}
+
+.hover\:bg-lime-200\/100:hover {
+  background-color: rgb(217 249 157 / 1);
+}
+
+.hover\:shadow:hover {
+  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:shadow-blue-400:hover {
+  --tw-shadow-color: #60a5fa;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 
 @media (min-width: 640px) {
