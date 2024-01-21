@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('app');
 })->where('all', '.*');
+*/
+
+Route::get('/test', \App\Http\Controllers\TestController::class);

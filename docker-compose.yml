@@ -45,10 +45,8 @@ services:
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
     environment:
       # Желаемые настройки для СУБД MySQL
-      MYSQL_DATABASE: ti_base
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_USER: 'appuser'
-      MYSQL_PASSWORD: 'appuser'
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
     volumes:
       - ./db/mysql:/var/lib/mysql # Используем именованный том из блока volumes
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf # Передаем в контейнер конфигурационный файл
@@ -85,4 +83,3 @@ services:
     container_name: redis
     depends_on:
       - db
-    
