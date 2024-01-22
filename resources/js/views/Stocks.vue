@@ -1,14 +1,32 @@
 <template>
-    <button @click="load">Загрузка данных</button>
-
-    <div class="server-response flex flex-row columns-4  rounded-md mx-auto ">
-        <button
-            class="hover:bg-lime-200/100 shadow-lg shadow-gray-600 text-gray-700 mx-2  my-[3px] bg-gray-300/100  border-2 border-white-400 rounded-xl font-sans">
-            <p class="mx-4 text-2xl">{{ trades.ticker }}</p>
-            <p class="mx-4">{{ trades.price }}</p>
+    <header class="flex flex-auto">
+        <div class="">
+            
+        </div>
+        <div class="">
+        </div>
+    </header>
+    <div>
+        <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-lg
+                       shadow-gray-600 text-gray-800 my-4 bg-gray-200/100  border-2
+                       border-blue-200 rounded-md font-sans">
+            <div>
+                <p class="font-bold mx-auto text-left">Ticker</p>
+                <p class="font-bold text-left ">Price</p>
+                <p class="font-bold text-left">Diff, %</p>
+                <p class="font-bold text-left ">Buy</p>
+                <p class="font-bold text-left ">Sell</p>
+            </div>
+            <div>
+                <p class="font-bold text-blue-600 text-right">GAZP</p>
+                <p class="font-bold text-right text-indigo-600">200</p>
+                <p class="font-bold text-violet-600 text-right">0.2</p>
+                <p class="font-bold text-right text-green-600">352</p>
+                <p class="font-bold text-right text-red-600">1120</p>
+            </div>
         </button>
-
     </div>
+        
 </template>
 <script>
 

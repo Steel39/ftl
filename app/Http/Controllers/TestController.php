@@ -12,6 +12,5 @@ class TestController extends Controller
     {
         $test = $shares->getShares();
         dd($test);
-
     }
 }
