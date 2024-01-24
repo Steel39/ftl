@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Services\TradeService;
-use Tinkoff\Invest\V1\GetLastTradesResponse;
+use Google\Protobuf\Internal\RepeatedField;
+use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
 use Tinkoff\Invest\V1\Trade;
 
 class GetDataTrades
@@ -9,21 +10,21 @@ class GetDataTrades
     public  $dataTrades;
 
     /**
-     * @var GetLastTradesResponse $trades
+     * @param RepeatedField $trades
      * @var Trade $trade
      * Получаем массив данных из массива объектов Trade
      * @return array
      */
-    public function getDataTrades(GetLastTradesResponse $trades): ?array {
-        $trades=$trades->getTrades();
+    public function getDataTrades(RepeatedField $trades): ?array
+    {
         foreach($trades as $trade) {
-            $this->dataTrades[] = 
+            $this->dataTrades[] =
             [
                 'figi' => $trade->getFigi(),
                 'direction' => $trade->getDirection(),
-                'price' => $trade->getPrice(),
-                'quantity' => $trade->getPrice(),
-                'time' => $trade->getTime(),
+                'price' => QuotationHelper::toDecimal($trade->getPrice()),
+                'quantity' => $trade->getQuantity(),
+                'time' => date($trade->getTime()->getSeconds()),
                 'instrument_uid' => $trade->getInstrumentUid(),
             ];
         }

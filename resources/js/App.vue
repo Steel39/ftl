@@ -1,5 +1,5 @@
 <template>
-  <header class=" bg-blue-400 bg-gradient-to-tl from-orange-300 
+  <header class=" bg-blue-400 bg-gradient-to-tl from-orange-300
     to-purple-400">
     <div class="px-4 sm:px-6 lg:px-8 py-2 ">
 
@@ -14,12 +14,10 @@
 
         <!-- Right: Actions -->
         <div class=" grid grid-flow-col sm:auto-cols-auto justify-start sm:justify-end gap-2">
-          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/">Home
-          </RouterLink>
-          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/stocks">
-            Stocks</RouterLink>
-          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/test">
-            Test</RouterLink>
+          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/">Home</RouterLink>
+          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/stocks">Stocks</RouterLink>
+          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/last_trades">Last Trade</RouterLink>
+          <RouterLink class="antialiased hover:shadow-cyan-400 rounded-md font-sans text-gray-800 shadow-lg" to="/test">Test</RouterLink>
         </div>
       </div>
     </div>

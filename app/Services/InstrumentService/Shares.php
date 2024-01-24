@@ -28,7 +28,8 @@ class Shares extends TinkoffApiConnectService
     /**
      * @return array
      * возвращает массив объектов Share,
-     * доступных для торговли на бирже MOEX
+     * доступных для торговли на MOEX
+     * в текущий момент
      */
     public function getOnTraidingMoexShares()
     {
@@ -38,6 +39,6 @@ class Shares extends TinkoffApiConnectService
                 $this->moexShares[] = $share;
             }
         }
-        return $this->moexShares;        
+        return $this->moexShares;
     }
 }

@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('stocks', IndexController::class);
 Route::get('test', \App\Http\Controllers\TestController::class);
+Route::get('last_trades', \App\Http\Controllers\TestController::class);

@@ -14,23 +14,17 @@ abstract class TinkoffApiConnectService implements ConnectInterface
      */
     protected TinkoffClientsFactory $factory;
 
-    /**
-     * @var InstrumentsRequest $request Запрос инструментов
-     */
-
-    /**
-     *@var $request
-     *Запрос к сервисам
-     */ 
     protected InstrumentsRequest $request;
-    
-    /**
-     * @var $status
-     * Статус Инструментов для запроса 
-     */
+
     protected InstrumentStatus $status;
 
-    
+    /**
+     * @param InstrumentsRequest $request
+     * Запрос Инструментов
+     *
+     * @param InstrumentStatus $status
+     * Статус Инструментов для запроса
+     */
     public function __construct(InstrumentsRequest $request, InstrumentStatus $status)
     {
         $this->request = $request;
@@ -48,10 +42,10 @@ abstract class TinkoffApiConnectService implements ConnectInterface
     }
 
     /**
-     * @return InstrumentsRequest 
-     * Получаем запрос на подключение к сервисам Tinkoff
+     * @return InstrumentsRequest
+     * Запрос на подключение к сервисам Tinkoff
      */
-    public function getRequest() 
+    public function getRequest()
     {
         $this->request->setInstrumentStatus($this->status::INSTRUMENT_STATUS_ALL);
         return $this->request;

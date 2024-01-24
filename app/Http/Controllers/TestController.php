@@ -12,8 +12,8 @@ class TestController extends Controller
 {
     public function __invoke(LastHourTrade $testing, GetDataTrades $testing2)
     {
-        $test = $testing->getLastHourTrades('TCSS07661625');
-        $test2 = $testing2->getDataTrades($test);
-        dd($test2);
+        $test = $testing->getLastHourTrades('BBG008HD3V85');
+        $test = $testing2->getDataTrades($test);
+        dd($test);
     }
 }
