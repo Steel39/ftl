@@ -8,11 +8,13 @@ class Shares extends TinkoffApiConnectService
     public array $shares;
     public array $moexShares;
 
+    public array $storeShares;
+
     /**
      * @return array
      * возвращает массив объектов Share
      */
-    public function getAllShares(): array
+    public function getAll(): array
     {
         list($response, $status) = $this->connect()
             ->instrumentsServiceClient
@@ -26,19 +28,42 @@ class Shares extends TinkoffApiConnectService
     }
 
     /**
-     * @return array
+     * @return array Share
      * возвращает массив объектов Share,
      * доступных для торговли на MOEX
      * в текущий момент
      */
-    public function getOnTraidingMoexShares()
+    public function getOnTraidingMoex()
     {
-        $shares = $this->getAllShares();
+        $shares = $this->getAll();
         foreach($shares as $share) {
             if($share->getCountryOfRisk() === 'RU' && $share->getTradingStatus() === 5) {
                 $this->moexShares[] = $share;
             }
         }
         return $this->moexShares;
+    }
+
+    /**
+     * @return array
+     * Возвращает массив акций мосбиржи 
+     * для записи в базу данных
+     */
+    function getDataStore() : array {
+        $shares = $this->getAll();
+        foreach($shares as $share) {
+            if($share->getCountryOfRisk() === 'RU') {
+                $this->storeShares[] = [
+                    'name' => $share->getName(),
+                    'ticker' => $share->getTicker(),
+                    'figi' => $share->getFigi(),
+                    'isin' => $share->getIsin(),
+                    'lot' => $share->getLot(),
+                    'issue_size' => $share->getIssueSize(),
+                    'issue_size_plan' => $share->getIssueSizePlan(),
+                ];
+            }
+        }
+        return $this->storeShares;
     }
 }

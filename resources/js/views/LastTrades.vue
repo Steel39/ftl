@@ -1,11 +1,36 @@
+<script>
+import axios from 'axios';
+import { ref } from 'vue';
+
+
+export default {
+    data() {
+        return {
+            ticker: 'GAZP',
+        }
+    },
+    methods: {
+        getTrades() {
+            axios.get('api/get_trades/' + this.ticker)
+            .then((response => {
+                
+                console.log(response.data)
+            }))
+        }
+    }
+}
+
+</script>
 <template>
     <header class="flex flex-auto mt-2 columns-2">
-        <form class="columns-2 w-full content-center" @submit.prevent="">
-            <div class=" ">
+        <form class="columns-2 w-full content-center" @submit.prevent="getTrades">
+            <div class="form-data">
                 <input class="appearance-none block w-full bg-pink-200 
                 text-gray-700 border border-gray-200 rounded py-3 
                  leading-tight focus:outline-none focus:bg-gray-300
-                 hover:shadow-emerald-300 focus:border-gray-500 text-center" id="grid-last-name" type="text" placeholder="TICKER">
+                 hover:shadow-emerald-300 focus:border-gray-500 text-center" 
+                 v-model="ticker" type="text"
+                    placeholder="TICKER">
             </div>
             <button type="submit" class="text-white bg-gradient-to-r
              from-cyan-400 via-cyan-500 to-cyan-600
