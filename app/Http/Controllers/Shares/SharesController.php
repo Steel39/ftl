@@ -23,19 +23,22 @@ class SharesController extends Controller
         $this->shares = $shares;
     }
 
-    public function getData() {
+    public function getData() 
+    {
         $this->data = DB::table('shares')->get()->toArray();
         dd($this->data);
         return $this->data;
     }
 
-    public function store() : bool {
+    public function store() : bool 
+    {
         $this->storeData = $this->service->getDataStore();
         $result =  DB::table('shares')->insert($this->storeData);
         return $result;
     }
 
-    public function destroy() : void {
+    public function destroy() : void 
+    {
         
     }
 }

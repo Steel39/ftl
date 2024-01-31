@@ -41,4 +41,9 @@ export default {
             </button>
         </form>
     </header>
+    <section class="flex flex-auto my-8">
+        <div class="greed columns-">
+
+        </div>
+    </section>
 </template>

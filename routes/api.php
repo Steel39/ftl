@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\Stocks\IndexController;
+use App\Http\Controllers\Api\Shares\ListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('stocks', IndexController::class);
+Route::get('stocks', ListController::class);
 //Route::get('test', \App\Http\Controllers\TestController::class);
-Route::get('get_trades/{ticker}', [\App\Http\Controllers\Api\Stocks\LastTradesController::class, 'getTrades']);
+Route::get('get_trades/{ticker}', App\Http\Controllers\Api\Shares\LastTradesController::class);

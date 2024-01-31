@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\Stocks;
+namespace App\Http\Controllers\Api\Shares;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class IndexController extends Controller
+class ListController extends Controller
 {
     public function __invoke() {
-        $data = [
-            'ticker' => 'GAZP',
-            'price' => 200
-        ];
+        $data = DB::table('shares')->get()->toJson();
         return $data;
     }
 }

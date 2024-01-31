@@ -1,7 +1,9 @@
 <template>
     <header class="flex flex-auto">
         <div class="">
-            
+            <button @click="load">
+                Load
+            </button>
         </div>
         <div class="">
         </div>
@@ -38,7 +40,7 @@ export default {
     name: "Stocks",
     setup() {
 
-        const trades = ref([])
+        const shares = ref([])
 
         function onSuccess(response) {
             trades.value = response.data;
@@ -46,13 +48,16 @@ export default {
 
         function load() {
             axios.get('/api/stocks')
-                .then(onSuccess)
+                .then(response => {
+                    this.shares = response.data
+                    console.log(shares.value)
+                })
                 .catch((error) => { alert(`Error ${error.message}`) })
         }
 
         return {
             load,
-            trades
+            shares
         }
     }
 }

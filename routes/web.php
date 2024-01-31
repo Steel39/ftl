@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\Stocks\LastTradesController;
+use App\Http\Controllers\Api\Shares\LastTradesController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,4 @@ Route::get('/', function () {
     return view('app');
 })->where('all', '.*');
 
-Route::get('/test/{ticker}', [LastTradesController::class, 'getTrades']);
+Route::get('/test/{ticker}', TestController::class);
