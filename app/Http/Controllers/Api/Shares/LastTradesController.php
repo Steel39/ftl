@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class LastTradesController extends Controller
 {
-    private  $trades;
-    private $service;
     public array $dataTrades;
-
 
     public function __invoke($ticker, GetDataTrades $getTrades, Shares $shares)
     {

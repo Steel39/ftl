@@ -2,20 +2,19 @@
 import axios from 'axios';
 import { ref } from 'vue';
 
-
 export default {
     data() {
         return {
-            ticker: 'GAZP',
+            ticker: 'RUAL',
         }
     },
     methods: {
         getTrades() {
             axios.get('api/get_trades/' + this.ticker)
-            .then((response => {
-                
-                console.log(response.data)
-            }))
+                .then((response => {
+                    
+                    console.log(response.data)
+                }))
         }
     }
 }
@@ -28,21 +27,21 @@ export default {
                 <input class="appearance-none block w-full bg-pink-200 
                 text-gray-700 border border-gray-200 rounded py-3 
                  leading-tight focus:outline-none focus:bg-gray-300
-                 hover:shadow-emerald-300 focus:border-gray-500 text-center" 
-                 v-model="ticker" type="text"
+                 hover:shadow-emerald-300 focus:border-gray-500 text-center" v-model="ticker" type="text"
                     placeholder="TICKER">
             </div>
             <button type="submit" class="text-white bg-gradient-to-r
-             from-cyan-400 via-cyan-500 to-cyan-600
-              hover:bg-gradient-to-l 
-              focus:outline-none focus:ring-pink-300
-               dark:focus:ring-cyan-800 font-medium rounded-lg
-                px-4 py-3  text-center me-2 ">Go LastTrades
+                from-cyan-400 via-cyan-500 to-cyan-600
+                hover:bg-gradient-to-l 
+                focus:outline-none focus:ring-pink-300
+                dark:focus:ring-cyan-800 font-medium rounded-lg
+                px-4 py-3  text-center me-2">
+                Go LastTrades
             </button>
         </form>
     </header>
-    <section class="flex flex-auto my-8">
-        <div class="greed columns-">
+    <section class="flex flex-auto my-8 bg-gray-300">
+        <div class="">
 
         </div>
     </section>
