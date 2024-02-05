@@ -3,6 +3,8 @@ export default {
   content: [ 
     './resources/js/*.vue',
     './resources/js/**/*.vue',
+    './resources/views/*.blade.php',
+    './node_modules/flowbite/**/*.js'
   ],
   theme: {
     extend: {
@@ -53,6 +55,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 }
 
