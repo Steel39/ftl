@@ -1,5 +1,6 @@
 <template>
-    <header class="flex flex-auto">
+    <section class="">
+        <header class="">
         <div class="">
             <button @click="load">
                 Load
@@ -28,6 +29,8 @@
             </div>
         </button>
     </div>
+    </section>
+    
         
 </template>
 <script>
