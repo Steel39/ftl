@@ -1,5 +1,5 @@
 <template >
-    <header class="w-full bg-blue-700 h-auto bg-gradient-to-tl fixed">
+    <header class="w-full bg-blue-300 h-auto bg-gradient-to-tl fixed">
       <div class="px-8 sm:px-6 lg:px-8 py-2 ">
 
         <!-- Page header -->

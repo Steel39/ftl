@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\DB;
 class SharesController extends Controller
 {
     private $service;
-    private $storeData;
-
     private $shares;
 
     public $data;
@@ -23,18 +21,16 @@ class SharesController extends Controller
         $this->shares = $shares;
     }
 
-    public function getData() 
+    public function show() : array
     {
         $this->data = DB::table('shares')->get()->toArray();
-        dd($this->data);
+       // dd($this->data);
         return $this->data;
     }
 
     public function store() : bool 
     {
-        $this->storeData = $this->service->getDataStore();
-        $result =  DB::table('shares')->insert($this->storeData);
-        return $result;
+        return $this->service->setShares();
     }
 
     public function destroy() : void 

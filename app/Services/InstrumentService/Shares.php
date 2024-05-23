@@ -2,6 +2,9 @@
 
 namespace App\Services\InstrumentService;
 use App\Services\ConnectService\TinkoffApiConnectService;
+use Illuminate\Support\Facades\DB;
+use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
+use Tinkoff\Invest\V1\Quotation;
 use Tinkoff\Invest\V1\Share;
 class Shares extends TinkoffApiConnectService
 {
@@ -33,7 +36,7 @@ class Shares extends TinkoffApiConnectService
      * доступных для торговли на MOEX
      * в текущий момент
      */
-    public function getOnTraidingMoex()
+    public function getOnTraidingMoex(): array
     {
         $shares = $this->getAll();
         foreach($shares as $share) {
@@ -49,7 +52,8 @@ class Shares extends TinkoffApiConnectService
      * Возвращает массив акций мосбиржи 
      * для записи в базу данных
      */
-    function getDataStore() : array {
+    public function getDataStore() : array 
+    {
         $shares = $this->getAll();
         foreach($shares as $share) {
             if($share->getCountryOfRisk() === 'RU') {
@@ -58,12 +62,21 @@ class Shares extends TinkoffApiConnectService
                     'ticker' => $share->getTicker(),
                     'figi' => $share->getFigi(),
                     'isin' => $share->getIsin(),
+                    'uid' => $share->getUid(),
                     'lot' => $share->getLot(),
+                    'nominal' => QuotationHelper::toDecimal($share->getNominal()),
                     'issue_size' => $share->getIssueSize(),
                     'issue_size_plan' => $share->getIssueSizePlan(),
                 ];
             }
         }
         return $this->storeShares;
+    }
+
+    public function setShares() : bool 
+    {
+        $data = $this->getDataStore();
+        $result = DB::table('shares')->insert($data);
+        return $result;
     }
 }

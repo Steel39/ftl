@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\Shares\ListController;
+use App\Http\Controllers\Shares\SharesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('stocks', ListController::class);
+Route::get('setStocks', [SharesController::class, 'store']);
+Route::get('showStocks', [SharesController::class, 'show']);
 //Route::get('test', \App\Http\Controllers\TestController::class);
 Route::get('get_trades/{ticker}', App\Http\Controllers\Api\Shares\LastTradesController::class);

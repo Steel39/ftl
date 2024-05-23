@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('ticker');
-            $table->string('figi')->unique();
+            $table->string('figi');
             $table->string('isin');
+            $table->float('nominal');
+            $table->string('uid')->unique();
             $table->unsignedMediumInteger('lot');
             $table->unsignedBigInteger('issue_size');
             $table->unsignedBigInteger('issue_size_plan');

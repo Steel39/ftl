@@ -16,7 +16,7 @@ class LastTradesController extends Controller
 
     public function __invoke($ticker, GetDataTrades $getTrades, Shares $shares)
     {
-        $figi = ShareAttributes::tickerToFigi($ticker);
+        $figi = ShareAttributes::tickerToIsin($ticker);
         $listTrades = $getTrades->getTradesBook($figi);
         return $listTrades;
     }

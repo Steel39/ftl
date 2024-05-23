@@ -1,37 +1,32 @@
 <template>
     <section class="">
-        <header class="">
-        <div class="">
-            <button @click="load">
+        <header class="column-2">
+            <div class="button">
+                <button @click="setStocks">
                 Load
-            </button>
-        </div>
-        <div class="">
-        </div>
-    </header>
-    <div>
-        <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-lg
+                </button>
+            </div>
+            <div class="">
+                <button @click="showStocks">
+                    Show
+                </button>
+            </div>
+        </header>
+        <div class="grid grid-cols-6 gap-4">
+            <div v-for="data in dataStocks">
+            <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-lg
                        shadow-gray-600 text-gray-800 my-4 bg-gray-200/100  border-2
                        border-blue-200 rounded-md font-sans">
-            <div>
-                <p class="font-bold mx-auto text-left">Ticker</p>
-                <p class="font-bold text-left ">Price</p>
-                <p class="font-bold text-left">Diff, %</p>
-                <p class="font-bold text-left ">Buy</p>
-                <p class="font-bold text-left ">Sell</p>
-            </div>
-            <div>
-                <p class="font-bold text-blue-600 text-right">GAZP</p>
-                <p class="font-bold text-right text-indigo-600">200</p>
-                <p class="font-bold text-violet-600 text-right">0.2</p>
-                <p class="font-bold text-right text-green-600">352</p>
-                <p class="font-bold text-right text-red-600">1120</p>
-            </div>
-        </button>
-    </div>
-    </section>
-    
+                <div>
+                    <p class="font-bold mx-auto text-left">Тикер <i class="font-bold text-green-600 text-right">{{data.ticker}}</i> </p>
+                    <p class="font-bold text-left ">Название <i class="font-bold text-center text-blue-600">{{data.name}}</i></p>
+                    <p class="font-bold text-left">Всего выпущено <i class="font-bold text-violet-600 text-right">{{data.issue_size}}</i></p>
+                </div>
+            </button>
+        </div>
+        </div>
         
+    </section>
 </template>
 <script>
 
@@ -43,7 +38,12 @@ export default {
     name: "Stocks",
     setup() {
 
+        const share = ref([])
+        const stock = ref([])
+        const data = ref([])
         const shares = ref([])
+        const resultSetStocks = ref([])
+        const dataStocks = ref([])
 
         function onSuccess(response) {
             trades.value = response.data;
@@ -58,9 +58,34 @@ export default {
                 .catch((error) => { alert(`Error ${error.message}`) })
         }
 
+        function setStocks() {
+            axios.get('api/setStocks')
+                .then(response => {
+                    this.resultSetStocks = response.data
+                    console.log(this.resultSetStocks)
+                })
+                .catch((error) => { alert(`Error ${error.message}`) })
+        }
+
+        function showStocks() {
+            axios.get('api/showStocks')
+                .then(response => {
+                    dataStocks.value = response.data
+                    console.log(dataStocks)
+                })
+                .catch((error) => { alert(`Error ${error.message}`) })
+        }
+
         return {
             load,
-            shares
+            setStocks,
+            showStocks,
+            shares,
+            share,
+            stock,
+            data,
+            resultSetStocks,
+            dataStocks
         }
     }
 }
