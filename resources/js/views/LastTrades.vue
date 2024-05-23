@@ -46,15 +46,15 @@ export default {
       </button>
     </form>
   </header>
-  <section class="grid grid-cols-2 gap-2 my-8 bg-emerald-200">
-    <div v-for="price, count  in trades.buy" class="">
-      <div >
-        <p>
-          {{ count }} + {{ price }}
-        </p>
-      </div>
+  <section class="grid grid-cols-2 gap-1 my-8 bg-emerald-200">
+    <div v-for="price, count  in trades.buy" class=" bg-green-300">
+
+      <p>
+        {{ count }} + {{ price }}
+      </p>
+
     </div>
-    <div v-for="price, count in trades.sell" class="">
+    <div v-for="price, count in trades.sell" class="bg-red-400">
       {{ count }} - {{ price }}
     </div>
   </section>

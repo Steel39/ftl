@@ -19,4 +19,4 @@ Route::get('/', function () {
     return view('app');
 })->where('all', '.*');
 
-Route::get('/test/{ticker}', TestController::class);
+Route::get('/test', TestController::class);

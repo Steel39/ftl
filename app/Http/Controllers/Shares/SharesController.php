@@ -30,7 +30,7 @@ class SharesController extends Controller
 
     public function store() : bool 
     {
-        return $this->service->setShares();
+        return true; //$this->service->setShares();
     }
 
     public function destroy() : void 

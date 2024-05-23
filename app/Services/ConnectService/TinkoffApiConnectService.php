@@ -47,7 +47,7 @@ abstract class TinkoffApiConnectService implements ConnectInterface
      */
     public function getRequest()
     {
-        $this->request->setInstrumentStatus($this->status::INSTRUMENT_STATUS_ALL);
-        return $this->request;
+        $request = $this->request->setInstrumentStatus($this->status::INSTRUMENT_STATUS_ALL);
+        return $request;
     }
 }

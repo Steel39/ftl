@@ -76,7 +76,7 @@ class Shares extends TinkoffApiConnectService
     public function setShares() : bool 
     {
         $data = $this->getDataStore();
-        $result = DB::table('shares')->insert($data);
+        $result = DB::table('shares')->firstOrCreate($data);
         return $result;
     }
 }

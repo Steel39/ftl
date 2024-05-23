@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Services\InstrumentAttributeService\ShareAttributes;
+use App\Services\InstrumentService\Shares;
+use App\Services\StreamService\StreamTrades;
 use App\Services\TradeService\GetDataTrades;
 
 class TestController extends Controller
 {
-    public function __invoke($ticker, GetDataTrades $getTrades)
+    public function __invoke(StreamTrades $streamTrades)
     {
-        // $figi = $shares->getAll();
-        $figi = ShareAttributes::tickerToFigi($ticker);
+
+        $test = $streamTrades->getStream();
+        dd($test);
+
+        /* $figi = $shares->getAll();
+        $figi = ShareAttributes::tickerToIsin($ticker);
         $listTrades = $getTrades->getTradesBook($figi);
-        //$this->dataTrades = $getTrades->getDataTrades($lictTrades);
+        
+        $this->dataTrades = $getTrades->getDataTrades($lictTrades);
         dd($listTrades);
         return $listTrades;
+        */
+
     }
 }
