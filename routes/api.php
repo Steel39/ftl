@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('setStocks', [SharesController::class, 'store']);
 Route::get('showStocks', [SharesController::class, 'show']);
+Route::delete('destroy', [SharesController::class, 'destroy']);
 //Route::get('test', \App\Http\Controllers\TestController::class);
 Route::get('get_trades/{ticker}', App\Http\Controllers\Api\Shares\LastTradesController::class);

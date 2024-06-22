@@ -5,6 +5,7 @@ namespace App\Services\StreamService;
 use App\Interfaces\StreamInterface;
 use App\Services\ConnectService\TinkoffApiConnectService;
 use App\Services\InstrumentService\Shares;
+use Illuminate\Support\Facades\Redis;
 use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
 use Metaseller\TinkoffInvestApi2\TinkoffClientsFactory;
 use Tinkoff\Invest\V1\InstrumentsRequest;
@@ -30,12 +31,15 @@ class StreamTrades extends TinkoffApiConnectService
 
     protected $subscription;
     public $shares;
+
+    
  
     public function __construct(Shares $shares,
                                 TradeInstrument $tradeInstrument,
                                 InstrumentsRequest $instrumentsRequest,
                                 MarketDataRequest $marketDataRequest,
-                                SubscribeTradesRequest $subscribeTradesRequest)
+                                SubscribeTradesRequest $subscribeTradesRequest,
+                                Redis)
     {
         $this->shares = $shares->getOnTraidingMoex();
         $this->tradeInstrument = $tradeInstrument;
@@ -45,7 +49,6 @@ class StreamTrades extends TinkoffApiConnectService
     }
     public function getStream()
     {
-        //dd($this->shares);
         foreach($this->shares as $share) {
             $item = $this->tradeInstrument->setFigi($share->getFigi());
             array_push($this->meta_instruments, $item);
@@ -66,9 +69,7 @@ class StreamTrades extends TinkoffApiConnectService
                 $trade_price = QuotationHelper::toDecimal($trades->getPrice());
                 
             }
-        }
-
-        dd($stream);        
+        }      
     }
 
 }

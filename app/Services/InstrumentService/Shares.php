@@ -17,7 +17,7 @@ class Shares extends TinkoffApiConnectService
      * @return array
      * возвращает массив объектов Share
      */
-    public function getAll(): array
+    public function getAll(): array 
     {
         list($response, $status) = $this->connect()
             ->instrumentsServiceClient
@@ -73,10 +73,10 @@ class Shares extends TinkoffApiConnectService
         return $this->storeShares;
     }
 
-    public function setShares() : bool 
+    public function setShares() : int 
     {
         $data = $this->getDataStore();
-        $result = DB::table('shares')->firstOrCreate($data);
+        $result = DB::table('shares')->insertOrIgnore($data);
         return $result;
     }
 }

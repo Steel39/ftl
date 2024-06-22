@@ -30,11 +30,12 @@ class SharesController extends Controller
 
     public function store() : bool 
     {
-        return true; //$this->service->setShares();
+        $this->service->setShares();
+        return true;
     }
 
     public function destroy() : void 
     {
-        
+        DB::table('shares')->delete();
     }
 }

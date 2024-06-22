@@ -1,31 +1,38 @@
 <template>
     <section class="">
-        <header class="column-2">
-            <div class="button">
-                <button @click="setStocks">
-                Load
+        <header class="">
+            <div class="grid grid-cols-6 gap-4">
+                <button @click="showStocks"
+                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    Показать
                 </button>
-            </div>
-            <div class="">
-                <button @click="showStocks">
-                    Show
+                <button @click="setStocks"
+                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    Загрузить 
+                </button>
+                <button @click="destroy"
+                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    Удалить 
                 </button>
             </div>
         </header>
         <div class="grid grid-cols-6 gap-4">
             <div v-for="data in dataStocks">
-            <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-lg
+                <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-lg
                        shadow-gray-600 text-gray-800 my-4 bg-gray-200/100  border-2
                        border-blue-200 rounded-md font-sans">
-                <div>
-                    <p class="font-bold mx-auto text-left">Тикер <i class="font-bold text-green-600 text-right">{{data.ticker}}</i> </p>
-                    <p class="font-bold text-left ">Название <i class="font-bold text-center text-blue-600">{{data.name}}</i></p>
-                    <p class="font-bold text-left">Всего выпущено <i class="font-bold text-violet-600 text-right">{{data.issue_size}}</i></p>
-                </div>
-            </button>
+                    <div>
+                        <p class="font-bold mx-auto text-left">Тикер <i
+                                class="font-bold text-green-600 text-right">{{ data.ticker }}</i> </p>
+                        <p class="font-bold text-left ">Название <i
+                                class="font-bold text-center text-blue-600">{{ data.name }}</i></p>
+                        <p class="font-bold text-left">Всего выпущено <i
+                                class="font-bold text-violet-600 text-right">{{ data.issue_size }}</i></p>
+                    </div>
+                </button>
+            </div>
         </div>
-        </div>
-        
+
     </section>
 </template>
 <script>
@@ -43,6 +50,7 @@ export default {
         const data = ref([])
         const shares = ref([])
         const resultSetStocks = ref([])
+        const resultDestroyStocks = ref([])
         const dataStocks = ref([])
 
         function onSuccess(response) {
@@ -76,15 +84,26 @@ export default {
                 .catch((error) => { alert(`Error ${error.message}`) })
         }
 
+        function destroy() {
+            axios.delete('api/destroy')
+                .then(response=> {
+                    this.resultDestroyStocks = response.data
+                    console.log(this.resultDestroyStocks)
+                })
+                .catch((error) => { alert(`Error ${error.message}`) })
+        }
+
         return {
             load,
             setStocks,
             showStocks,
+            destroy,
             shares,
             share,
             stock,
             data,
             resultSetStocks,
+            resultDestroyStocks,
             dataStocks
         }
     }
