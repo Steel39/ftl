@@ -13,12 +13,11 @@ class TestController extends Controller
     {
 
         $test = $streamTrades->getStream();
-        dd($test);
 
         /* $figi = $shares->getAll();
         $figi = ShareAttributes::tickerToIsin($ticker);
         $listTrades = $getTrades->getTradesBook($figi);
-        
+
         $this->dataTrades = $getTrades->getDataTrades($lictTrades);
         dd($listTrades);
         return $listTrades;

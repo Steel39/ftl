@@ -1,20 +1,28 @@
 <template>
     <section class="">
         <header class="">
-            <div class="grid grid-cols-6 gap-4">
+            <div class="grid 2xl:grid-cols-5 gap-4">
                 <button @click="showStocks"
-                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
                     Показать
                 </button>
                 <button @click="setStocks"
-                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
-                    Загрузить 
+                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    Загрузить все
+                </button>
+                <button @click=""
+                        class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    Загрузить
                 </button>
                 <button @click="destroy"
-                    class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
-                    Удалить 
+                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    Удалить
                 </button>
-            </div>
+                <div class="bg-gray-900 rounded-md text-center py-4 lg:px-4">
+                        <span class="font-semibold mr-2 text-green-400 text-left flex-auto">Статус</span>
+
+                    </div>
+                </div>
         </header>
         <div class="grid grid-cols-6 gap-4">
             <div v-for="data in dataStocks">

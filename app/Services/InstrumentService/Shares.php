@@ -2,26 +2,36 @@
 
 namespace App\Services\InstrumentService;
 use App\Services\ConnectService\TinkoffApiConnectService;
+use Google\Protobuf\Internal\RepeatedField;
 use Illuminate\Support\Facades\DB;
 use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
+use Tinkoff\Invest\V1\Instrument;
+use Tinkoff\Invest\V1\InstrumentsRequest;
+use Tinkoff\Invest\V1\InstrumentStatus;
 use Tinkoff\Invest\V1\Quotation;
 use Tinkoff\Invest\V1\Share;
 class Shares extends TinkoffApiConnectService
 {
     public array $shares;
-    public array $moexShares;
+    public array $moexSharesActive = [];
 
     public array $storeShares;
+
+    protected $instrumentsRequest;
+    public function __construct(InstrumentsRequest $instrumentsRequest)
+    {
+        $this->instrumentsRequest = $instrumentsRequest;
+    }
 
     /**
      * @return array
      * возвращает массив объектов Share
      */
-    public function getAll(): array 
+    public function getAll(): array
     {
-        list($response, $status) = $this->connect()
+        list($response, $status) = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
-            ->Shares($this->getRequest())
+            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_ALL))
             ->wait();
         $repeatedField = $response->getInstruments();
         foreach ($repeatedField as $share) {
@@ -31,28 +41,26 @@ class Shares extends TinkoffApiConnectService
     }
 
     /**
-     * @return array Share
-     * возвращает массив объектов Share,
-     * доступных для торговли на MOEX
-     * в текущий момент
+     * @var RepeatedField $instruments
      */
-    public function getOnTraidingMoex(): array
+    public function getInstrumentsMoexActive(RepeatedField $instruments): array
     {
-        $shares = $this->getAll();
-        foreach($shares as $share) {
-            if($share->getCountryOfRisk() === 'RU' && $share->getTradingStatus() === 5) {
-                $this->moexShares[] = $share;
+
+        foreach($instruments as $instrument) {
+            if($instrument->getCountryOfRisk() === 'RU') {
+                
+                $this->moexSharesActive[] = $instrument;
             }
         }
-        return $this->moexShares;
+        return $this->moexSharesActive;
     }
 
     /**
      * @return array
-     * Возвращает массив акций мосбиржи 
+     * Возвращает массив акций мосбиржи
      * для записи в базу данных
      */
-    public function getDataStore() : array 
+    public function getDataStore() : array
     {
         $shares = $this->getAll();
         foreach($shares as $share) {
@@ -73,7 +81,7 @@ class Shares extends TinkoffApiConnectService
         return $this->storeShares;
     }
 
-    public function setShares() : int 
+    public function setShares() : int
     {
         $data = $this->getDataStore();
         $result = DB::table('shares')->insertOrIgnore($data);

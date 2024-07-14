@@ -1,4 +1,4 @@
-<template >
+<template class="bg-white">
     <header class="w-full bg-blue-300 h-auto bg-gradient-to-tl fixed">
       <div class="px-8 sm:px-6 lg:px-8 py-2 ">
 
@@ -7,18 +7,21 @@
 
           <!-- Left: Title -->
           <div class="mb-4 sm:mb-0 ">
-            <h1 class=" text-2xl rounded-md   text-gray-700 bg-gradient-to-r from-cyan-300
-                        to-emerald-400  font-bold shadow-lg hover:shadow-emerald-300">FinTechLab</h1>
+              <RouterLink to="/">
+                  <h1 class=" text-2xl rounded-md   text-stone-900 bg-gradient-to-r from-cyan-300
+                        to-emerald-900  font-bold shadow-lg hover:shadow-emerald-800">FinTechLab</h1>
+              </RouterLink>
+
           </div>
 
           <!-- Right: Actions -->
           <div class="grid grid-flow-col sm:auto-cols-auto justify-start sm:justify-end gap-2
                      antialiased  font-sans text-shadow-lg text-violet-100">
-            <RouterLink class="hover:shadow-cyan-400 shadow-lg rounded-md" to="/">Home </RouterLink>
-            <RouterLink class="hover:shadow-cyan-400 shadow-lg rounded-md" to="/stocks">Stocks</RouterLink>
-            <RouterLink class="hover:shadow-cyan-400 shadow-lg rounded-md" to="/last_trades">Last Trade</RouterLink>
-            <RouterLink class="hover:shadow-cyan-400 shadow-lg rounded-md" to="/test"> Test</RouterLink>
-             
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/">Home </RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/stocks">Stocks</RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/last_trades">Last Trade</RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/test"> Test</RouterLink>
+
           </div>
         </div>
       </div>
@@ -28,6 +31,9 @@
     </main>
 
     <footer class="flex-auto justify-center h-auto mx-8 text-3xl">
-      footer
+
     </footer>
 </template>
+<script setup>
+
+</script>

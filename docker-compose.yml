@@ -42,13 +42,14 @@ services:
     tty: true
     ports:
       - "${DB_PORT}:3306"
-    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', ]
     environment:
       # Желаемые настройки для СУБД MySQL
       MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USERNAME: "${DB_USERNAME}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
     volumes:
-      - ./db/mysql:/var/lib/mysql-files # Используем именованный том из блока volumes
+      - ./db/mysql:/var/lib/mysql  # Используем именованный том из блока volumes
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf # Передаем в контейнер конфигурационный файл
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping" ]
