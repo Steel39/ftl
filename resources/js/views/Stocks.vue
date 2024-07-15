@@ -3,7 +3,7 @@
         <header class="">
             <div class="grid 2xl:grid-cols-5 gap-4">
                 <button @click="showStocks"
-                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-sans  py-2 px-4 border border-gray-400 rounded-md shadow">
                     Показать
                 </button>
                 <button @click="setStocks"
@@ -19,14 +19,13 @@
                     Удалить
                 </button>
                 <div class="bg-gray-900 rounded-md text-center py-4 lg:px-4">
-                        <span class="font-semibold mr-2 text-green-400 text-left flex-auto">{{ this.status }}</span>
-
+                        <span class="font-semibold mr-2 text-lime-400 text-left flex-auto">{{ this.status }}</span>
                     </div>
                 </div>
         </header>
         <div class="grid grid-cols-6 gap-4">
             <div v-for="data in dataStocks">
-                <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-lg
+                <button class="flex flex-row space-x-6 hover:bg-lime-200/100 shadow-xl
                        shadow-gray-600 text-gray-800 my-4 bg-gray-200/100  border-2
                        border-blue-200 rounded-md font-sans">
                     <div>

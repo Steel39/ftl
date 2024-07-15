@@ -9,7 +9,7 @@
           <div class="mb-4 sm:mb-0 ">
               <RouterLink to="/">
                   <h1 class=" text-2xl rounded-md   text-stone-900 bg-gradient-to-r from-cyan-300
-                        to-emerald-900  font-bold shadow-lg hover:shadow-emerald-800">FinTechLab</h1>
+                        to-blue-400  font-bold shadow-xl hover:shadow-cyan-400">MoscowExchangeLab</h1>
               </RouterLink>
 
           </div>
