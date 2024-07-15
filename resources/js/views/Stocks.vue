@@ -19,7 +19,7 @@
                     Удалить
                 </button>
                 <div class="bg-gray-900 rounded-md text-center py-4 lg:px-4">
-                        <span class="font-semibold mr-2 text-green-400 text-left flex-auto">Статус</span>
+                        <span class="font-semibold mr-2 text-green-400 text-left flex-auto">{{ this.status }}</span>
 
                     </div>
                 </div>
@@ -54,6 +54,7 @@ export default {
     setup() {
 
         const share = ref([])
+        const status = ref()
         const stock = ref([])
         const data = ref([])
         const shares = ref([])
@@ -77,7 +78,7 @@ export default {
         function setStocks() {
             axios.get('api/setStocks')
                 .then(response => {
-                    this.resultSetStocks = response.data
+                    this.status = response.data
                     console.log(this.resultSetStocks)
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })
@@ -87,6 +88,7 @@ export default {
             axios.get('api/showStocks')
                 .then(response => {
                     dataStocks.value = response.data
+                    this.status = 'Успешно загружено из базы даных'
                     console.log(dataStocks)
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })
@@ -95,7 +97,7 @@ export default {
         function destroy() {
             axios.delete('api/destroy')
                 .then(response=> {
-                    this.resultDestroyStocks = response.data
+                    this.status = response.data
                     console.log(this.resultDestroyStocks)
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })
@@ -104,6 +106,7 @@ export default {
         return {
             load,
             setStocks,
+            status,
             showStocks,
             destroy,
             shares,

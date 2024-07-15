@@ -1,9 +1,8 @@
 import './bootstrap';
 import '../css/tail.css';
-
+import 'flowbite'
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
-import { initFlowbite } from 'flowbite';
 
-createApp(App).use(router, initFlowbite).mount("#app")
+createApp(App).use(router).mount("#app")

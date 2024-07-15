@@ -20,7 +20,6 @@ export default {
         }))
     }
 
-
     return {
       trades,
       getTrades,
@@ -57,5 +56,5 @@ export default {
     <div v-for="price, count in trades.sell" class="bg-red-400">
       {{ count }} - {{ price }}
     </div>
-  </section>
-</template>
+   
+</section></template>

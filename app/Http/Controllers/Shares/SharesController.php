@@ -28,14 +28,15 @@ class SharesController extends Controller
         return $this->data;
     }
 
-    public function store() : bool 
+    public function store() : string 
     {
         $this->service->setShares();
-        return true;
+        return 'Акции успешно загружены с сервера Т в базу данных';
     }
 
-    public function destroy() : void 
+    public function destroy() : string 
     {
         DB::table('shares')->delete();
+        return 'Акции удалены из базы данных';
     }
 }

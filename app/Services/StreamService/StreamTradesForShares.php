@@ -23,6 +23,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
 {
     protected InstrumentsRequest $instrumentsRequest;
     protected SubscribeTradesRequest $subscribeTradesRequest;
+    private Redis $redis;
 
     protected array $tradeInstruments = [];
     private $tradeInstrument;
@@ -32,23 +33,25 @@ final class StreamTradesForShares extends TinkoffApiConnectService
     public function __construct(InstrumentsRequest $instrumentsRequest,
                                 MarketDataRequest $marketDataRequest,
                                 TradeInstrument $tradeInstrument,
-                                SubscribeTradesRequest $subscribeTradesRequest)
+                                SubscribeTradesRequest $subscribeTradesRequest,
+                                Redis $redis)
     {
         $this->instrumentsRequest = $instrumentsRequest;
         $this->marketDataRequest = $marketDataRequest;
         $this->tradeInstrument = $tradeInstrument;
         $this->subscribeTradesRequest = $subscribeTradesRequest;
+        $this->redis = $redis;
     }
 
     public function getStreamTradesShares(): void
     {
-        list($response, $status) = $this->getFactoryForClientTinkoffApiService()
+        [$response, $status] = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
             ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_ALL))
             ->wait();
         $instruments = $response->getInstruments();
         foreach ($instruments as $instrument) {
-            if ($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 14) {
+            if ($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
                 $item = (new TradeInstrument())->setFigi($instrument->getFigi());
                 $this->tradeInstruments[] = $item;
                 echo $instrument->getName() . PHP_EOL;
@@ -69,6 +72,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         $stream->write($this->subscription);
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
+                $this->redis::hSet();
                 echo $trades->getFigi() . PHP_EOL;
             }
         }

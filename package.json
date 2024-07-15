@@ -15,6 +15,7 @@
         "vue-router": "^4.2.5"
     },
     "dependencies": {
-        "flowbite": "^2.2.1"
+        "apexcharts": "^3.50.0",
+        "flowbite": "^2.4.1"
     }
 }

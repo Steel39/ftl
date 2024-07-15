@@ -27,7 +27,7 @@ class LastHourTrade extends TinkoffApiConnectService
      */
     public function getLastHourTrades(string $figi): RepeatedField {
         $this->tradesRequest->setInstrumentId($figi);
-        list($response) = $this->connect()
+        list($response) = $this->getFactoryForClientTinkoffApiService()
             ->marketDataServiceClient
             ->GetLastTrades($this->tradesRequest)
             ->wait();
