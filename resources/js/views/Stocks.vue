@@ -76,6 +76,7 @@ export default {
         }
 
         function setStocks() {
+            this.status = "Ожидайте ответа от сервера Т"
             axios.get('api/setStocks')
                 .then(response => {
                     this.status = response.data

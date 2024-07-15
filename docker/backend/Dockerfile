@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
 #install grpc
 RUN pecl install grpc
 
+RUN pecl install redis && docker-php-ext-enable redis
 # Add user for laravel application
 RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 

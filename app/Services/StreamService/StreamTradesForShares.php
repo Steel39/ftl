@@ -72,8 +72,10 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         $stream->write($this->subscription);
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
-                $this->redis::hSet();
-                echo $trades->getFigi() . PHP_EOL;
+                $price =  QuotationHelper::toDecimal($trades->getPrice());
+                $this->redis::hSet($trades->getFigi(), $price, $trades->getQuantity());
+                $echo = $this->redis::hGet($trades->getFigi(), $price);
+                echo $echo;
             }
         }
         $stream->cancel();
