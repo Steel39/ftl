@@ -9,7 +9,7 @@
 </head>
 <body >
 <div id="app" class="conteiner absolute top-0 w-[100%] min-h-screen h-auto
-                     fixed bg-gradient-to-br  from-slate-200 to-stone-200"
+                     fixed bg-gradient-to-br  from-slate-500 to-stone-400"
                      ></div>
 
 @vite('resources/js/app.js')

@@ -31,9 +31,9 @@ export default {
 <template>
   <header class="flex flex-auto mt-2 columns-2 justify-center">
     <form class="columns-2 w-auto mt-2" @submit.prevent="getTrades">
-      <div class="form-data w-full h-12 bg-slate-800">
-        <input class="w-full rounded-xl bg-gradient-to-r h-full from-amber-800 to-yellow-200
-                 focus:border-gray-500 text-center" v-model="ticker" type="text" placeholder="TICKER">
+      <div class="form-data w-full h-12">
+        <input class="rounded-md border-1 bg-gradient-to-tl h-full from-cyan-400 to-blue-200
+                 focus:border-lime-400 text-center" v-model="ticker" type="text" placeholder="TICKER">
       </div>
       <button type="submit" class="text-white bg-gradient-to-r
                 from-cyan-400 via-cyan-500 to-cyan-600

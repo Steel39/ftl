@@ -1,27 +1,32 @@
 <template>
     <section class="">
         <header class="">
-            <div class="grid 2xl:grid-cols-5 gap-4">
-                <button @click="showStocks"
-                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-sans  py-2 px-4 border border-gray-400 rounded-md shadow">
+            <div class="flex flex-auto gap-4">
+                <button @click="showStocks" class="bg-gray-400 hover:bg-amber-400 active:shadow-none
+
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Показать
                 </button>
-                <button @click="setStocks"
-                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                <button @click="setStocks" class="bg-gray-400 hover:bg-amber-400 active:shadow-none
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Загрузить все
                 </button>
-                <button @click=""
-                        class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
-                    Загрузить
+                <button @click="" class="bg-gray-400 hover:bg-amber-400 active:shadow-none
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
+                    Загрузить активные
                 </button>
-                <button @click="destroy"
-                    class="bg-amber-400 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-md shadow">
+                <button @click="" class="bg-gray-400 hover:bg-amber-400 active:shadow-none
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
+                    Акции внебиржевой торговли
+                </button>
+                <button @click="destroy" class="bg-gray-400 hover:bg-amber-400 active:shadow-none
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Удалить
                 </button>
-                <div class="bg-gray-900 rounded-md text-center py-4 lg:px-4">
-                        <span class="font-semibold mr-2 text-lime-400 text-left flex-auto">{{ this.status }}</span>
-                    </div>
+                <div class="bg-gray-900 rounded-md py-4 text-center basis-full">
+                    <span class="font-semibold text-xl text-slate-200">{{ this.status }}</span>
                 </div>
+            </div>
         </header>
         <div class="grid grid-cols-6 gap-4">
             <div v-for="data in dataStocks">
@@ -29,12 +34,12 @@
                        shadow-gray-600 text-gray-800 my-4 bg-gray-200/100  border-2
                        border-blue-200 rounded-md font-sans">
                     <div>
-                        <p class="font-bold mx-auto text-left">Тикер <i
-                                class="font-bold text-green-600 text-right">{{ data.ticker }}</i> </p>
-                        <p class="font-bold text-left ">Название <i
-                                class="font-bold text-center text-blue-600">{{ data.name }}</i></p>
-                        <p class="font-bold text-left">Всего выпущено <i
-                                class="font-bold text-violet-600 text-right">{{ data.issue_size }}</i></p>
+                        <p class="font-bold mx-auto text-left">Тикер <i class="font-bold text-green-600 text-right">{{
+                            data.ticker }}</i> </p>
+                        <p class="font-bold text-left ">Название <i class="font-bold text-center text-blue-600">{{ data.name
+                        }}</i></p>
+                        <p class="font-bold text-left">Всего выпущено <i class="font-bold text-violet-600 text-right">{{
+                            data.issue_size }}</i></p>
                     </div>
                 </button>
             </div>
@@ -96,7 +101,7 @@ export default {
 
         function destroy() {
             axios.delete('api/destroy')
-                .then(response=> {
+                .then(response => {
                     this.status = response.data
                     console.log(this.resultDestroyStocks)
                 })

@@ -40,14 +40,12 @@ class Shares extends TinkoffApiConnectService
         return $this->shares;
     }
 
-    /**
-     * @var RepeatedField $instruments
-     */
-    public function getInstrumentsMoexActive(RepeatedField $instruments): array
-    {
 
+    public function getInstrumentsMoexActive(): array
+    {
+        $instruments = $this->getAll();
         foreach($instruments as $instrument) {
-            if($instrument->getCountryOfRisk() === 'RU') {
+            if($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
                 
                 $this->moexSharesActive[] = $instrument;
             }
@@ -55,11 +53,19 @@ class Shares extends TinkoffApiConnectService
         return $this->moexSharesActive;
     }
 
-    /**
-     * @return array
-     * Возвращает массив акций мосбиржи
-     * для записи в базу данных
-     */
+    public function getInstrumentsDealerActive(): array
+    {
+        $instruments = $this->getAll();
+        foreach($instruments as $instrument) {
+            if($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 14) {
+                
+                $this->moexSharesActive[] = $instrument;
+            }
+        }
+        return $this->moexSharesActive;
+    }
+
+
     public function getDataStore() : array
     {
         $shares = $this->getAll();

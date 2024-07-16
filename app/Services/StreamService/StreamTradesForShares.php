@@ -2,18 +2,13 @@
 
 namespace App\Services\StreamService;
 
-use App\Interfaces\StreamInterface;
 use App\Services\ConnectService\TinkoffApiConnectService;
-use App\Services\InstrumentService\Shares;
+use App\Services\TradeService\TradeDataHandler;
+use App\Services\TradeService\TradeDataHandler\TradeDataHandler as TradeDataHandlerTradeDataHandler;
 use Illuminate\Support\Facades\Redis;
-use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
-use Metaseller\TinkoffInvestApi2\TinkoffClientsFactory;
-use Tinkoff\Invest\V1\Instrument;
 use Tinkoff\Invest\V1\InstrumentsRequest;
 use Tinkoff\Invest\V1\InstrumentStatus;
 use Tinkoff\Invest\V1\MarketDataRequest;
-use Tinkoff\Invest\V1\MarketDataResponse;
-use Tinkoff\Invest\V1\MarketDataServerSideStreamRequest;
 use Tinkoff\Invest\V1\SubscribeTradesRequest;
 use Tinkoff\Invest\V1\SubscriptionAction;
 use Tinkoff\Invest\V1\TradeInstrument;
@@ -26,21 +21,21 @@ final class StreamTradesForShares extends TinkoffApiConnectService
     private Redis $redis;
 
     protected array $tradeInstruments = [];
-    private $tradeInstrument;
+    private TradeDataHandler $tradeDataHandler;
     private MarketDataRequest $marketDataRequest;
     public  $subscription;
 
     public function __construct(InstrumentsRequest $instrumentsRequest,
                                 MarketDataRequest $marketDataRequest,
-                                TradeInstrument $tradeInstrument,
                                 SubscribeTradesRequest $subscribeTradesRequest,
-                                Redis $redis)
+                                Redis $redis, 
+                                TradeDataHandler $tradeDataHandler)
     {
         $this->instrumentsRequest = $instrumentsRequest;
         $this->marketDataRequest = $marketDataRequest;
-        $this->tradeInstrument = $tradeInstrument;
         $this->subscribeTradesRequest = $subscribeTradesRequest;
         $this->redis = $redis;
+        $this->tradeDataHandler = $tradeDataHandler;
     }
 
     public function getStreamTradesShares(): void
@@ -57,7 +52,6 @@ final class StreamTradesForShares extends TinkoffApiConnectService
                 echo $instrument->getName() . PHP_EOL;
             }
         }
-        //dd($this->tradeInstruments);
 
         if (empty($this->tradeInstruments)) {
             echo "Нет активных инструментов торговли";
@@ -72,16 +66,10 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         $stream->write($this->subscription);
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
-                $price =  QuotationHelper::toDecimal($trades->getPrice());
-                $this->redis::hSet($trades->getFigi(), $price, $trades->getQuantity());
-                echo $trades->getFigi() . PHP_EOL;
-                echo $trades->getDirection() . PHP_EOL;
-                echo $trades->getQuantity() . PHP_EOL . PHP_EOL;
+                $this->tradeDataHandler->setDataTrade($trades);
             }
         }
         $stream->cancel();
     }
-
-
 }
 
