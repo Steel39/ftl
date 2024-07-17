@@ -8,8 +8,6 @@ use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
 use Tinkoff\Invest\V1\Instrument;
 use Tinkoff\Invest\V1\InstrumentsRequest;
 use Tinkoff\Invest\V1\InstrumentStatus;
-use Tinkoff\Invest\V1\Quotation;
-use Tinkoff\Invest\V1\Share;
 class Shares extends TinkoffApiConnectService
 {
     public array $shares;
@@ -23,11 +21,8 @@ class Shares extends TinkoffApiConnectService
         $this->instrumentsRequest = $instrumentsRequest;
     }
 
-    /**
-     * @return array
-     * возвращает массив объектов Share
-     */
-    public function getAll(): array
+    
+    public function getAllInstruments(): array
     {
         list($response, $status) = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
@@ -43,7 +38,7 @@ class Shares extends TinkoffApiConnectService
 
     public function getInstrumentsMoexActive(): array
     {
-        $instruments = $this->getAll();
+        $instruments = $this->getAllInstruments();
         foreach($instruments as $instrument) {
             if($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
                 
@@ -55,7 +50,7 @@ class Shares extends TinkoffApiConnectService
 
     public function getInstrumentsDealerActive(): array
     {
-        $instruments = $this->getAll();
+        $instruments = $this->getAllInstruments();
         foreach($instruments as $instrument) {
             if($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 14) {
                 
@@ -65,11 +60,10 @@ class Shares extends TinkoffApiConnectService
         return $this->moexSharesActive;
     }
 
-
-    public function getDataStore() : array
+    /** @var Instrument[] $data */
+    public function getDataStore(array $data) : array
     {
-        $shares = $this->getAll();
-        foreach($shares as $share) {
+        foreach($data as $share) {
             if($share->getCountryOfRisk() === 'RU') {
                 $this->storeShares[] = [
                     'name' => $share->getName(),
@@ -87,9 +81,10 @@ class Shares extends TinkoffApiConnectService
         return $this->storeShares;
     }
 
-    public function setShares() : int
+    /** @var Instrument[] $data */
+    public function setShares(array $data) : int
     {
-        $data = $this->getDataStore();
+        $data = $this->getDataStore($data);
         $result = DB::table('shares')->insertOrIgnore($data);
         return $result;
     }

@@ -44,4 +44,10 @@ class TradeDataHandler
         $trades['sell'] = $this->redis::hGetAll("SELL:$figi");
         return $trades;
     }
+
+    public function getTradeVolumes($figi) 
+    {
+        $test = $this->redis::hGetAll("BUY:$figi");
+        return $test;
+    }
 }

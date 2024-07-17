@@ -40,7 +40,7 @@ export default {
                 hover:bg-gradient-to-l
                 focus:outline-none focus:ring-pink-300
                 dark:focus:ring-cyan-800 font-medium rounded-lg
-                px-4 py-3 hover:shadow-emerald-300  text-center me-2">
+                px-4 py-3 hover:shadow-gray-300  text-center me-2">
         Go LastTrades
       </button>
     </form>

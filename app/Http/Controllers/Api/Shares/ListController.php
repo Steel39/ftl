@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class ListController extends Controller
 {
-    public function __invoke() {
+    public function __invoke()
+    {
         $data = DB::table('shares')->get()->toJson();
         return $data;
     }

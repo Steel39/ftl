@@ -8,8 +8,8 @@
           <!-- Left: Title -->
           <div class="mb-4 sm:mb-0 ">
               <RouterLink to="/">
-                  <h1 class=" text-2xl rounded-md   text-stone-900 bg-gradient-to-r from-cyan-300
-                        to-blue-400  font-bold shadow-xl hover:shadow-cyan-400">MoscowExchangeLab</h1>
+                  <h1 class=" text-2xl rounded-md  text-stone-900 bg-gradient-to-r from-cyan-300
+                        to-blue-400  font-bold shadow-md shadow-slate-600 hover:shadow-cyan-400">MoscowExchangeLab</h1>
               </RouterLink>
 
           </div>
@@ -17,10 +17,10 @@
           <!-- Right: Actions -->
           <div class="grid grid-flow-col sm:auto-cols-auto justify-start sm:justify-end gap-2
                      antialiased  font-sans text-shadow-lg text-violet-100">
-            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/">Home </RouterLink>
-            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/stocks">Stocks</RouterLink>
-            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/last_trades">Last Trade</RouterLink>
-            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-lg rounded-md" to="/test"> Test</RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/">Home </RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/stocks">Stocks</RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/last_trades">Last Trade</RouterLink>
+            <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/test"> Test</RouterLink>
 
           </div>
         </div>

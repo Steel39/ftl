@@ -24,13 +24,13 @@ class SharesController extends Controller
     public function show() : array
     {
         $this->data = DB::table('shares')->get()->toArray();
-       // dd($this->data);
         return $this->data;
     }
 
     public function store() : string 
     {
-        $this->service->setShares();
+        $data = $this->service->getAllInstruments();
+        $this->service->setShares($data);
         return 'Акции успешно загружены с сервера Т в базу данных';
     }
 
@@ -38,5 +38,12 @@ class SharesController extends Controller
     {
         DB::table('shares')->delete();
         return 'Акции удалены из базы данных';
+    }
+
+    public function setActive(): string
+    {
+        $data = $this->service->getInstrumentsMoexActive();
+        $this->service->setShares($data);
+        return "Загружены торгующиеся акции";
     }
 }

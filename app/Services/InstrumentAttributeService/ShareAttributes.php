@@ -18,4 +18,6 @@ final class ShareAttributes
         $name = DB::table('shares')->where('figi', $figi)->value('name');
         return $name;
     }
+
+    
 }
