@@ -45,9 +45,9 @@ class TradeDataHandler
         return $trades;
     }
 
-    public function getTradeVolumes($figi) 
+    public function getAllTradeVolumes()
     {
-        $test = $this->redis::hGetAll("BUY:$figi");
-        return $test;
+        $keys = $this->redis::keys('*');
+        return $keys;
     }
 }

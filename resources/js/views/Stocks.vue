@@ -2,6 +2,11 @@
     <section class="">
         <header class="">
             <div class="flex flex-auto gap-4">
+                <button @click="" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
+
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
+                    Обновить
+                </button>
                 <button @click="showStocks" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
 
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
@@ -23,24 +28,29 @@
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Удалить
                 </button>
-                <div class="bg-gray-900 rounded-md py-4 basis-1/2 text-center">
-                    <span class="font-sans text-xl text-emerald-400">{{ this.status }}</span>
+                
+                <div class="bg-gray-900 rounded-md py-2 basis-full text-center">
+                    <span class="font-sans text-emerald-400">{{ this.status }}</span>
                 </div>
             </div>
+            <div class="flex flex-auto gap-4 py-4">
+                
+            </div>
         </header>
-        <div class="grid grid-cols-6 gap-4">
+        <div class="grid md:grid-cols-6 grid-cols-3 gap-4 py-10">
             <div v-for="data in dataStocks">
-                <button class="flex flex-row space-x-6 shadow-md
-                       shadow-gray-400 text-gray-800 my-4 bg-gradient-to-bl
-                       border-cyan-400 rounded-md">
-                    <div>
-                        <p class="font-semibold mx-auto text-center"><i class="font-semibold text-cyan-900 text-center">{{
-                            data.ticker }}</i> </p>
-                        <p class="font-semibold text-center "><i class="font-semibold text-center text-stone-800">
-                            {{ data.name }}</i></p>
-                        <p class="font-sans text-center"><i class="font-semibold text-emerald-950 text-center">
-1.2%
-                        </i></p>
+                <button class="shadow-xl shadow-green-400 my-2 h-44 w-44 px-5 bg-gradient-to-bl
+                       from-slate-800  to-stone-400 border-spacing-10 rounded-full hover:bg-black">
+                    <div class="">
+                        <p class="font-semibold mx-auto text-center"><i class="font-semibold text-lime-400 text-center">
+                                {{ data.ticker }}</i></p>
+                        <p class="font-sans text-center"><i class="font-semibold text-gray-200 text-center">
+                                +2,3%
+                            </i></p>
+                        <p class="font-sanstext-center">
+                            <b class="font-sans text-green-200 text-center">81489</b>/
+                            <b class="font-sans text-red-300 text-center">5698</b>
+                        </p>
                     </div>
                 </button>
             </div>
@@ -83,9 +93,9 @@ export default {
             this.status = "Загружаю актуальные акции, ожидайте..."
             axios.get('/api/setActive')
                 .then(response => {
-                this.status = response.data
+                    this.status = response.data
                 })
-                .catch((error) => { alert(`Error ${error.message}`), this.status = `Ошибка загрузки ${error.message}`})
+                .catch((error) => { alert(`Error ${error.message}`), this.status = `Ошибка загрузки ${error.message}` })
         }
 
         function setStocks() {

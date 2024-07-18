@@ -12,7 +12,7 @@ class TestController extends Controller
 {
     public function __invoke(TradeDataHandler $streamTrades)
     {
-        $test = $streamTrades->getDataTrades('BBG002GHV6L9');
+        $test = $streamTrades->getTradeVolumes('BBG002GHV6L9');
         dd($test);
     }
 }
