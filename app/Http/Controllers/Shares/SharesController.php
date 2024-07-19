@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Shares;
 
-use App\Services\InstrumentService\Shares as ServiceShares;
+use App\Services\InstrumentService\Shares;
 use App\Http\Controllers\Controller;
-use App\Models\Shares as ModelsShares;
-use Illuminate\Http\Request;
+use App\Services\TradeService\TradeDataHandler;
 use Illuminate\Support\Facades\DB;
 
 class SharesController extends Controller
 {
     private $service;
-    private $shares;
+    private $tradeDataHandler;
 
     public $data;
 
-    public function __construct(ServiceShares $service, ModelsShares $shares)
+    public function __construct(Shares $service, TradeDataHandler $tradeDataHandler)
     {
         $this->service = $service;
-        $this->shares = $shares;
+        $this->tradeDataHandler = $tradeDataHandler;
+
     }
 
     public function show() : array
@@ -45,5 +45,9 @@ class SharesController extends Controller
         $data = $this->service->getInstrumentsMoexActive();
         $this->service->setShares($data);
         return "Загружены торгующиеся акции";
+    }
+    public function getTradesData()
+    {
+        return $this->tradeDataHandler->getTradeVolumes();        
     }
 }

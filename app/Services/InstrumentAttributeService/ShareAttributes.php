@@ -13,7 +13,7 @@ final class ShareAttributes
         return $isin;
     }
 
-    public static function figiToName(string $figi): string 
+    public static function figiToName(string $figi): string
     {
         $name = DB::table('shares')->where('figi', $figi)->value('name');
         return $name;

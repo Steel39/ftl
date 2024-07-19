@@ -6,10 +6,12 @@ use App\Services\InstrumentAttributeService\ShareAttributes;
 use Illuminate\Support\Facades\Redis;
 use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
 use Tinkoff\Invest\V1\Trade;
+use Illuminate\Support\Facades\DB;
 
 class TradeDataHandler
 {
     private Redis $redis;
+    public array $tradeVolumes;
 
     public function __construct(Redis $redis)
     {
@@ -37,7 +39,7 @@ class TradeDataHandler
         }
     }
 
-    public function getDataTrades($figi): array
+    public function getDataTrade($figi): array
     {
         $trades['name'] = ShareAttributes::figiToName($figi);
         $trades['buy'] = $this->redis::hGetAll("BUY:$figi");
@@ -45,9 +47,12 @@ class TradeDataHandler
         return $trades;
     }
 
-    public function getAllTradeVolumes()
+    public function getTradeVolumes(): array
     {
-        $keys = $this->redis::keys('*');
-        return $keys;
+        $keys = DB::table('shares')->select('figi', 'ticker')->get()->toArray();
+        foreach($keys as $key) {
+            $this->tradeVolumes[$key->ticker] = $this->getDataTrade($key->figi);
+        }
+        return $this->tradeVolumes;
     }
 }

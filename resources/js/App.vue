@@ -14,19 +14,19 @@
 
         </div>
         <div class="bg-gray-950 rounded-md py-1 basis-1/2 text-center">
-          <span class="font-sans text-xl text-blue-500">Окно статуса в разработке...</span>
+          <span class="font-sans text-xl text-lime-300">Окно уведомлений в разработке...</span>
         </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-auto justify-start sm:justify-end gap-2 content-stretch
                      antialiased  font-sans text-shadow-lg text-violet-100">
-          <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/">Home
+          <RouterLink class="hover:shadow-cyan-400 text-gray-300 shadow-md shadow-slate-600 rounded-md" to="/">Home
           </RouterLink>
-          <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/stocks">
+          <RouterLink class="hover:shadow-cyan-400 text-gray-300 shadow-md shadow-slate-600 rounded-md" to="/stocks">
             Stocks</RouterLink>
-          <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/last_trades">
+          <RouterLink class="hover:shadow-cyan-400 text-gray-300 shadow-md shadow-slate-600 rounded-md" to="/last_trades">
             Last Trade</RouterLink>
-          <RouterLink class="hover:shadow-cyan-400 text-gray-900 shadow-md shadow-slate-600 rounded-md" to="/test"> Test
+          <RouterLink class="hover:shadow-cyan-400 text-gray-300 shadow-md shadow-slate-600 rounded-md" to="/test"> Test
           </RouterLink>
 
         </div>

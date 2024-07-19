@@ -2,7 +2,7 @@
     <section class="">
         <header class="">
             <div class="flex flex-auto gap-4">
-                <button @click="" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
+                <button @click="getTradesData" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
 
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Обновить
@@ -30,7 +30,7 @@
                 </button>
                 
                 <div class="bg-gray-900 rounded-md py-2 basis-full text-center">
-                    <span class="font-sans text-emerald-400">{{ this.status }}</span>
+                    <span class="font-sans text-emerald-200">{{ this.status }}</span>
                 </div>
             </div>
             <div class="flex flex-auto gap-4 py-4">
@@ -38,19 +38,20 @@
             </div>
         </header>
         <div class="grid md:grid-cols-6 grid-cols-3 gap-4 py-10">
-            <div v-for="data in dataStocks">
-                <button class="shadow-xl shadow-green-400 my-2 h-44 w-44 px-5 bg-gradient-to-bl
-                       from-slate-800  to-stone-400 border-spacing-10 rounded-full hover:bg-black">
-                    <div class="">
-                        <p class="font-semibold mx-auto text-center"><i class="font-semibold text-lime-400 text-center">
+            <div v-for="data in dataTrades">
+                <button class="shadow-xl active:shadow-inner hover:bg-black shadow-green-600 my-2 h-44 w-44 px-5 bg-gradient-to-bl
+                       from-zinc-800  to-slate-700 border-spacing-10 rounded-xl">
+                    <div class=" rounded-full h-38 w-38 ">
+                        <p class="font-semibold mx-auto text-center"><i class="font-semibold text-blue-400 text-center">
                                 {{ data.ticker }}</i></p>
                         <p class="font-sans text-center"><i class="font-semibold text-gray-200 text-center">
                                 +2,3%
                             </i></p>
                         <p class="font-sanstext-center">
-                            <b class="font-sans text-green-200 text-center">81489</b>/
-                            <b class="font-sans text-red-300 text-center">5698</b>
+                            <b class="font-sans text-lime-400 text-center">81489</b><i class="font-bold text-xl text-zinc-400"> / </i><b class="font-sans text-red-600 text-center">5698</b>
                         </p>
+                
+                        
                     </div>
                 </button>
             </div>
@@ -76,6 +77,7 @@ export default {
         const resultSetStocks = ref([])
         const resultDestroyStocks = ref([])
         const dataStocks = ref([])
+        const tradesData = ref([])
 
         function onSuccess(response) {
             trades.value = response.data;
@@ -127,14 +129,26 @@ export default {
                 .catch((error) => { alert(`Error ${error.message}`) })
         }
 
+        function getTradesData() {
+            this.status = "Получаем данные"
+            axios.get('api/getTradesData')
+            .then(response => {
+                tradesData = response.data
+                this.status = `Получено объектов: ${tradesData.length}`
+                console.log(tradesData)
+            })
+        }
+
         return {
             load,
             setStocks,
             showStocks,
             destroy,
             setActiveShares,
+            getTradesData,
             status,
             shares,
+            tradesData,
             share,
             stock,
             data,
