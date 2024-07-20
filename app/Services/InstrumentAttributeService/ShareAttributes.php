@@ -19,5 +19,11 @@ final class ShareAttributes
         return $name;
     }
 
+    public static function figiToTicker(string $figi): string
+    {
+        return DB::table('shares')->where('figi', $figi)->value('ticker');
+    
+    }
+
     
 }

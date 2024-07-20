@@ -38,8 +38,8 @@
             </div>
         </header>
         <div class="grid md:grid-cols-6 grid-cols-3 gap-4 py-10">
-            <div v-for="data in dataTrades">
-                <button class="shadow-xl active:shadow-inner hover:bg-black shadow-green-600 my-2 h-44 w-44 px-5 bg-gradient-to-bl
+            <div v-for="data in dataStocks">
+                <button class="shadow-xl active:shadow-inner hover:bg-black shadow-#{data.color}-600 my-2 h-44 w-44 px-5 bg-gradient-to-bl
                        from-zinc-800  to-slate-700 border-spacing-10 rounded-xl">
                     <div class=" rounded-full h-38 w-38 ">
                         <p class="font-semibold mx-auto text-center"><i class="font-semibold text-blue-400 text-center">
@@ -48,10 +48,8 @@
                                 +2,3%
                             </i></p>
                         <p class="font-sanstext-center">
-                            <b class="font-sans text-lime-400 text-center">81489</b><i class="font-bold text-xl text-zinc-400"> / </i><b class="font-sans text-red-600 text-center">5698</b>
+                            <b class="font-sans text-lime-400 text-center">{{ data.allBuy }}</b><i class="font-bold text-xl text-zinc-400"> / </i><b class="font-sans text-red-600 text-center">{{ data.allSell }}</b>
                         </p>
-                
-                        
                     </div>
                 </button>
             </div>
@@ -74,14 +72,9 @@ export default {
         const stock = ref([])
         const data = ref([])
         const shares = ref([])
-        const resultSetStocks = ref([])
-        const resultDestroyStocks = ref([])
         const dataStocks = ref([])
         const tradesData = ref([])
 
-        function onSuccess(response) {
-            trades.value = response.data;
-        }
 
         function load() {
             axios.get('/api/stocks')
@@ -105,7 +98,6 @@ export default {
             axios.get('api/setStocks')
                 .then(response => {
                     this.status = response.data
-                    console.log(this.resultSetStocks)
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })
         }
@@ -130,12 +122,12 @@ export default {
         }
 
         function getTradesData() {
-            this.status = "Получаем данные"
+            this.status = "Получаем данные..."
             axios.get('api/getTradesData')
             .then(response => {
-                tradesData = response.data
-                this.status = `Получено объектов: ${tradesData.length}`
-                console.log(tradesData)
+                dataStocks.value = response.data
+                this.status = `Получено объектов: ${dataStocks.value.length}`
+                console.log(dataStocks)
             })
         }
 
@@ -146,14 +138,12 @@ export default {
             destroy,
             setActiveShares,
             getTradesData,
+            tradesData,
             status,
             shares,
-            tradesData,
             share,
             stock,
             data,
-            resultSetStocks,
-            resultDestroyStocks,
             dataStocks,
         }
     }
