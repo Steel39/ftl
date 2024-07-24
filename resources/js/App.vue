@@ -14,7 +14,9 @@
 
         </div>
         <div class="bg-gray-950 rounded-md py-1 basis-1/2 text-center">
-          <span class="font-sans text-xl text-lime-300">Окно уведомлений в разработке...</span>
+          <span  class="font-sans text-xl text-gray-500">
+            {{ status }}
+          </span>
         </div>
 
         <!-- Right: Actions -->
@@ -42,5 +44,10 @@
   </footer>
 </template>
 <script setup>
+
+import {ref, provide} from 'vue'
+const status = ref('Сомнительно, но ОКЭЭЭЙ')
+provide('status', status)
+
 
 </script>

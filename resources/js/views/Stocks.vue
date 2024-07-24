@@ -28,10 +28,6 @@
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Удалить
                 </button>
-                
-                <div class="bg-gray-900 rounded-md py-2 basis-full text-center">
-                    <span class="font-sans text-emerald-200">{{ this.status }}</span>
-                </div>
             </div>
             <div class="flex flex-auto gap-4 py-4">
                 
@@ -57,24 +53,25 @@
 
     </section>
 </template>
-<script>
+<script >
 
 import axios from 'axios'
 axios.defaults.withCredentials = true
 import { ref } from 'vue'
-
+import { inject } from 'vue'
 export default {
     name: "Stocks",
     setup() {
-
+        
+        const status = inject('status')
         const share = ref([])
-        const status = ref()
         const stock = ref([])
         const data = ref([])
         const shares = ref([])
         const dataStocks = ref([])
         const tradesData = ref([])
-
+        
+        
 
         function load() {
             axios.get('/api/stocks')
