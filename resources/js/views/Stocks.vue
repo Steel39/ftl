@@ -30,23 +30,24 @@
                 </button>
             </div>
             <div class="flex flex-auto gap-4 py-4">
-                
+
             </div>
         </header>
-        <div class="grid md:grid-cols-6 grid-cols-3 gap-4 py-10">
+        <div class="grid md:grid-cols-10 grid-cols-3 gap-4 py-10">
             <div v-for="data in dataStocks">
-                <button class="shadow-xl active:shadow-inner hover:bg-black shadow-#{data.color}-600 my-2 h-44 w-44 px-5 bg-gradient-to-bl
-                       from-zinc-800  to-slate-700 border-spacing-10 rounded-xl">
-                    <div class=" rounded-full h-38 w-38 ">
-                        <p class="font-semibold mx-auto text-center"><i class="font-semibold text-blue-400 text-center">
+                <button :class="`shadow-xl  active:shadow-inner hover:bg-black shadow-${ data.color }-500 my-2 h-24 w-24 px-5 bg-gradient-to-bl
+                       from-zinc-800  to-slate-700 border-spacing-10 rounded-md`">
+                        <p class="font-semibold  text-xs mx-auto"><i class="font-semibold text-blue-400 ">
                                 {{ data.ticker }}</i></p>
-                        <p class="font-sans text-center"><i class="font-semibold text-gray-200 text-center">
-                                +2,3%
+                        <p class="font-sans text-xs "><i class="font-semibold text-gray-200 ">
+
                             </i></p>
-                        <p class="font-sanstext-center">
-                            <b class="font-sans text-lime-400 text-center">{{ data.allBuy }}</b><i class="font-bold text-xl text-zinc-400"> / </i><b class="font-sans text-red-600 text-center">{{ data.allSell }}</b>
+                        <p class="font-sans">
+                            <b class="font-sans  text-xs text-lime-400 ">{{ data.allBuy }}</b>
                         </p>
-                    </div>
+                        <p class="font-sans">
+                           <b class="font-sans text-xs text-red-600 ">{{ data.allSell }}</b>
+                        </p>
                 </button>
             </div>
         </div>
@@ -62,7 +63,7 @@ import { inject } from 'vue'
 export default {
     name: "Stocks",
     setup() {
-        
+
         const status = inject('status')
         const share = ref([])
         const stock = ref([])
@@ -70,8 +71,8 @@ export default {
         const shares = ref([])
         const dataStocks = ref([])
         const tradesData = ref([])
-        
-        
+
+
 
         function load() {
             axios.get('/api/stocks')
@@ -103,7 +104,7 @@ export default {
             axios.get('api/showStocks')
                 .then(response => {
                     dataStocks.value = response.data
-                    this.status = `Акций загружено: ${dataStocks.value.length}`
+                    this.status = `Обновлено`
                     console.log(dataStocks)
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })

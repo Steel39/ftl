@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace App\Services\FrontPlaceService;
 
-class Color 
+class Color
 {
     public string $lightColor;
 
@@ -15,7 +15,7 @@ class Color
             $this->lightColor = 'red';
         }
         if($buy == 0 || $sell == 0) {
-            $this->lightColor = 'gray';
+            $this->lightColor = 'zinc';
         }
         return $this->lightColor;
     }

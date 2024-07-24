@@ -14,7 +14,7 @@
 
         </div>
         <div class="bg-gray-950 rounded-md py-1 basis-1/2 text-center">
-          <span  class="font-sans text-xl text-gray-500">
+          <span  class="font-sans text-xl text-cyan-300">
             {{ status }}
           </span>
         </div>
