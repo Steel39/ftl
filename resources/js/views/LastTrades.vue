@@ -45,16 +45,28 @@ export default {
       </button>
     </form>
   </header>
-  <section class="grid grid-cols-2 gap-1 my-8 bg-emerald-200">
-    <div v-for="price, count  in trades.buy" class=" bg-green-300">
-
-      <p>
-        {{ count }} + {{ price }}
-      </p>
-
-    </div>
-    <div v-for="price, count in trades.sell" class="bg-red-400">
-      {{ count }} - {{ price }}
-    </div>
-   
-</section></template>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th class="border border-slate-600 ...">Куплено</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="price, count  in trades.buy">
+        <td class="border border-slate-700 ...">{{ count }} + {{ price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th class="border border-slate-600 ...">Продано</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="price, count  in trades.sell">
+        <td class="border border-slate-700 ...">{{ count }} - {{ price }}</td>
+      </tr>
+    </tbody>
+  </table>
+</template>
