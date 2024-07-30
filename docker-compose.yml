@@ -37,7 +37,7 @@ services:
 
   # MySQL контейнер
   db:
-    image: mysql:latest
+    image: mysql:8.0.14
     restart: unless-stopped
     tty: true
     ports:
@@ -49,7 +49,7 @@ services:
       MYSQL_USERNAME: "${DB_USERNAME}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
     volumes:
-      - ./db/mysql:/var/lib/mysql  # Используем именованный том из блока volumes
+      - ./db/mysql:/var/lib/mysql-files  # Используем именованный том из блока volumes
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf # Передаем в контейнер конфигурационный файл
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping" ]

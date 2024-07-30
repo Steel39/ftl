@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrasructure\TinkoffClient;
+namespace App\Infrastructure\TinkoffClient;
 
 use Metaseller\TinkoffInvestApi2\TinkoffClientsFactory;
 
