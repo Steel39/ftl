@@ -12,12 +12,12 @@ use App\Services\TradeService\TradeDataHandler;
 
 class TestController extends Controller
 {
-    public function __construct(public readonly GetStreamTradesQuery $query){
+    public function __construct(public readonly TradeDataHandler $query){
 
     }
     
     public function __invoke()
     {
-       
+       return $this->query::getDifferencePrice('BBG004S682Z6');
     }
 }

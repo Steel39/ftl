@@ -64,6 +64,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
             );
         $stream = $this->getFactoryForClientTinkoffApiService()->marketDataStreamServiceClient->MarketDataStream();
         $stream->write($this->subscription);
+        $this->redis::Set('StartStream', date('h:i:s'));
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
                 $this->tradeDataHandler->setDataTrade($trades);

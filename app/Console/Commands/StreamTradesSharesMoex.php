@@ -24,7 +24,7 @@ class StreamTradesSharesMoex extends Command
     /**
      * Execute the console command.
      */
-    public function handle(zz $streamTrades): void
+    public function handle(StreamTradesForShares $streamTrades): void
     {
         $streamTrades->getStreamTradesShares();
     }
