@@ -4,19 +4,30 @@ namespace App\Services\FrontPlaceService;
 
 class Color
 {
-    public string $lightColor;
-
     public function setColorSharesLight(int $buy, $sell) : string
     {
+        $lightColor = '';
         if($buy > $sell) {
-            $this->lightColor = 'green';
+            $lightColor = 'green';
         }
         if ($buy < $sell) {
-            $this->lightColor = 'red';
+            $lightColor = 'red';
         }
-        if($buy == 0 || $sell == 0) {
-            $this->lightColor = 'zinc';
+        if($buy == 0 && $sell == 0) {
+            $lightColor = 'zinc';
         }
-        return $this->lightColor;
+        return $lightColor;
+    }
+    public function setColorDifferencePrice(float $diff): string
+    {
+        $differenceColor = 'black';
+
+        if($diff > 0){
+            $differenceColor = 'green';
+        }
+        if($diff < 0) {
+            $differenceColor = 'red';
+        }
+        return $differenceColor;
     }
 }

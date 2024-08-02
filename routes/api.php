@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('setStocks', [SharesController::class, 'store']);
 Route::get('showStocks', [SharesController::class, 'show']);
+Route::get('getStream', [SharesController::class, 'getStream']);
 Route::delete('destroy', [SharesController::class, 'destroy']);
 Route::get('setActive', [SharesController::class, 'setActive']);
 Route::get('getTradesData', [SharesController::class, 'getTradesData']);
+Route::get('destroyHashMemory', [SharesController::class, 'destroyHashMemory']);
 //Route::get('test', \App\Http\Controllers\TestController::class);
 Route::get('get_trades/{ticker}', App\Http\Controllers\Api\Shares\LastTradesController::class);

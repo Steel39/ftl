@@ -6,18 +6,17 @@ use App\Services\InstrumentService\Shares;
 use App\Http\Controllers\Controller;
 use App\Services\TradeService\TradeDataHandler;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
+use App\Services\StreamService\StreamTradesForShares;
 
 class SharesController extends Controller
 {
-    private $service;
-    private $tradeDataHandler;
-
     public $data;
 
-    public function __construct(Shares $service, TradeDataHandler $tradeDataHandler)
+    public function __construct(private readonly Shares $service,
+                                private readonly TradeDataHandler $tradeDataHandler,
+                                private readonly StreamTradesForShares $stream)
     {
-        $this->service = $service;
-        $this->tradeDataHandler = $tradeDataHandler;
 
     }
 
@@ -46,8 +45,28 @@ class SharesController extends Controller
         $this->service->setShares($data);
         return "Загружены торгующиеся акции";
     }
-    public function getTradesData()
+    public function getTradesData(): ?array
     {
-        return $this->tradeDataHandler->getTradeVolumes();        
+        $data['trades'] = $this->tradeDataHandler->getTradeVolumes(); 
+        $data['time'] = $this->tradeDataHandler->getTimeStartStream();
+        return $data;
+    }
+
+    public function destroyHashMemory(): string
+    {
+        $status = 'Статус: неопределено';
+        $flushall = Redis::flushall();
+        if($flushall == 1) {
+            $status = 'Очищено';
+        }
+        if($flushall == 0) {
+            $status = 'Что-то пошло не так';
+        }
+        return $status;
+    }
+
+    public function getStream() 
+    {
+        $this->stream->getStreamTradesShares();
     }
 }

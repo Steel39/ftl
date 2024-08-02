@@ -42,19 +42,28 @@ class TradeDataHandler
             $this->redis::set("startPrice:$figi", $price);
         }
         $this->redis::set("endPrice:$figi", $price);
+        
+    }
 
+    public function getTimeStartStream(): ?string 
+    {
+        return $this->redis::get('StartStream');
     }
 
     public function getDataTrade(string $figi): array
     {
-        $trades['name'] = ShareAttributes::figiToName($figi);
-        $trades['ticker'] = ShareAttributes::figiToTicker($figi);
         $buy = $this->redis::hGetAll("BUY:$figi");
         $sell = $this->redis::hGetAll("SELL:$figi");
+        
+        $trades['name'] = ShareAttributes::figiToName($figi);
+        $trades['ticker'] = ShareAttributes::figiToTicker($figi);
         $trades['allBuy'] = array_sum($buy);
         $trades['allSell'] = array_sum($sell);
         $trades['color'] = $this->color->setColorSharesLight($trades['allBuy'], $trades['allSell']);
-        $trade['startPrice'] = $this->redis::get("startPrice:$figi");
+        $trades['different'] = self::getDifferencePrice($figi);
+        $trades['differentColor'] = $this->color->setColorDifferencePrice($trades['different']);
+        $trades['startPrice'] = Redis::get("startPrice:$figi");
+        $trades['endPrice'] = Redis::get("endPrice:$figi");
         return $trades;
     }
 
@@ -63,6 +72,8 @@ class TradeDataHandler
         $tradeVolumes = [];
         $keys = DB::table('shares')->select('figi', 'ticker')->get()->toArray();
         foreach($keys as $key) {
+            $tradeData = $this->getDataTrade($key->figi);
+            if(empty($tradeData['allBuy']) && empty($tradeData['allSell'])) continue;
             $tradeVolumes[$key->figi] = $this->getDataTrade($key->figi);
         }
         return $tradeVolumes;
@@ -72,7 +83,10 @@ class TradeDataHandler
     {
         $startPrice = Redis::get("startPrice:$figi");
         $endPrice = Redis::get("endPrice:$figi");
-        $diff = ($endPrice - $startPrice)/100*$startPrice;
-        return $diff;
+        $diff = 0;
+        if(!empty($startPrice) && !empty($endPrice)) {
+            $diff = ($endPrice - $startPrice)/(($startPrice + $endPrice)/2)*100;
+        }
+        return round($diff, 2);
     }
 }

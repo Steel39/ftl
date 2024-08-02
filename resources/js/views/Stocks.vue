@@ -20,41 +20,52 @@
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Торгующиеся
                 </button>
-                <button @click="" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
-                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
-                    Внебиржевые
-                </button>
                 <button @click="destroy" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                     Удалить
+                </button>
+                <button @click="destroyHashMemory" class="bg-gray-400 hover:bg-slate-400 active:shadow-none
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
+                    Очистить
+                </button>
+                <div class="bg-gray-950 rounded-md py-1 basis-1/2 text-center">
+                    <span class="font-sans text-xl text-cyan-300">
+                        {{ dataStocks.time }}
+                    </span>
+                </div>
+                <button @click="getStream" class="bg-lime-400 hover:bg-slate-400 active:shadow-none
+                 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
+                    STREAM
                 </button>
             </div>
             <div class="flex flex-auto gap-4 py-4">
 
             </div>
         </header>
-        <div class="grid md:grid-cols-10 grid-cols-3 gap-4 py-10">
-            <div v-for="data in dataStocks">
-                <button :class="`shadow-xl  active:shadow-inner hover:bg-black shadow-${ data.color }-500 my-2 h-24 w-24 px-5 bg-gradient-to-bl
+        <div class="grid md:grid-cols-8 grid-cols-3 gap-4 py-10">
+            <div v-for="data in dataStocks.trades">
+                <button :class="`shadow-xl  active:shadow-inner hover:bg-black shadow-${data.color}-500 my-2 h-32 w-32 px-5 bg-gradient-to-bl
                        from-zinc-800  to-slate-700 border-spacing-10 rounded-md`">
-                        <p class="font-semibold  text-xs mx-auto"><i class="font-semibold text-blue-400 ">
-                                {{ data.ticker }}</i></p>
-                        <p class="font-sans text-xs "><i class="font-semibold text-gray-200 ">
-
-                            </i></p>
-                        <p class="font-sans">
-                            <b class="font-sans  text-xs text-lime-400 ">{{ data.allBuy }}</b>
-                        </p>
-                        <p class="font-sans">
-                           <b class="font-sans text-xs text-red-600 ">{{ data.allSell }}</b>
-                        </p>
+                    <p class="font-semibold  mx-auto"><i class="font-semibold text-blue-400 ">
+                            {{ data.ticker }}</i></p>
+                    <p class="font-sans "><i class="font-semibold text-gray-200 ">
+                        </i></p>
+                    <p class="font-sans">
+                        <b class="font-sans  text-lime-400 ">{{ data.allBuy }}</b>
+                    </p>
+                    <p class="font-sans">
+                        <b class="font-sans text-red-500 ">{{ data.allSell }}</b>
+                    </p>
+                    <p class="font-sans">
+                        <b :class="`font-sans text-${data.differentColor}-600`">{{ data.different }}%</b>
+                    </p>
                 </button>
             </div>
         </div>
 
     </section>
 </template>
-<script >
+<script>
 
 import axios from 'axios'
 axios.defaults.withCredentials = true
@@ -118,15 +129,31 @@ export default {
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })
         }
+        function getStream() {
+            axios.get('api/getStream')
+                .then(response => {
+                    //this.status = response.data
+                    //console.log(this.resultDestroyStocks)
+                })
+                .catch((error) => { alert(`Error ${error.message}`) })
+        }
 
         function getTradesData() {
             this.status = "Получаем данные..."
             axios.get('api/getTradesData')
-            .then(response => {
-                dataStocks.value = response.data
-                this.status = `Получено объектов: ${dataStocks.value.length}`
-                console.log(dataStocks)
-            })
+                .then(response => {
+                    dataStocks.value = response.data
+                    this.status = `Получено объектов: ${dataStocks.value.length}`
+                    console.log(dataStocks)
+                })
+        }
+        function destroyHashMemory() {
+            this.status = "Чищу хэши"
+            axios.get('api/destroyHashMemory')
+                .then(response => {
+                    this.status = response.data
+                    this.getTradesData()
+                })
         }
 
         return {
@@ -134,8 +161,10 @@ export default {
             setStocks,
             showStocks,
             destroy,
+            getStream,
             setActiveShares,
             getTradesData,
+            destroyHashMemory,
             tradesData,
             status,
             shares,

@@ -18,6 +18,7 @@ class TestController extends Controller
     
     public function __invoke()
     {
-       return $this->query::getDifferencePrice('BBG004S682Z6');
+       $test =  $this->query->getTradeVolumes();
+       dd($test);
     }
 }
