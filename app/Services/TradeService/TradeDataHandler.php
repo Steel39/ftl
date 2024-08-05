@@ -64,6 +64,7 @@ class TradeDataHandler
         $trades['differentColor'] = $this->color->setColorDifferencePrice($trades['different']);
         $trades['startPrice'] = Redis::get("startPrice:$figi");
         $trades['endPrice'] = Redis::get("endPrice:$figi");
+        $trades['intense'] = $this->color->setIntenseLight($trades['allBuy'], $trades['allSell']);
         return $trades;
     }
 

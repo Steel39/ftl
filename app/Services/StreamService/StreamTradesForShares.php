@@ -13,7 +13,7 @@ use Tinkoff\Invest\V1\SubscribeTradesRequest;
 use Tinkoff\Invest\V1\SubscriptionAction;
 use Tinkoff\Invest\V1\TradeInstrument;
 use Tinkoff\Invest\V1\TradeSourceType;
-
+use Illuminate\Support\Facades\Log;
 final class StreamTradesForShares extends TinkoffApiConnectService
 {
     protected InstrumentsRequest $instrumentsRequest;
@@ -50,6 +50,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
                 $item = (new TradeInstrument())->setFigi($instrument->getFigi());
                 $this->tradeInstruments[] = $item;
                 echo $instrument->getName() . PHP_EOL;
+                
             }
         }
 
@@ -68,6 +69,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
                 $this->tradeDataHandler->setDataTrade($trades);
+                Log::info($trades->getDirection());
             }
         }
         $stream->cancel();
