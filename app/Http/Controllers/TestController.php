@@ -18,7 +18,7 @@ class TestController extends Controller
     
     public function test()
     {
-       $test =  $this->query->getTradeVolumes();
+       $test =  $this->query->getAveragePrice('BBG00475K6C3');
        dd($test);
     }
 }

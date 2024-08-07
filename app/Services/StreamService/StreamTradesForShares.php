@@ -38,7 +38,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         $this->tradeDataHandler = $tradeDataHandler;
     }
 
-    public function getStreamTradesShares(): string
+    public function getStreamTradesShares(): void
     {
         [$response, $status] = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
@@ -55,7 +55,6 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         }
 
         if (empty($this->tradeInstruments)) {
-            return "Нет активных инструментов торговли";
             die();
         }
         $this->subscription = $this->marketDataRequest
@@ -68,6 +67,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         $this->redis::set('StartStream', date('h:i:s'));
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
+                echo $trades->getFigi(); 
                 $this->tradeDataHandler->setDataTrade($trades);
             }
         }

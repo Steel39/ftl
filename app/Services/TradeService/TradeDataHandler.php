@@ -105,4 +105,13 @@ class TradeDataHandler
         }
         return round($diff, 2);
     }
+
+    public function getAveragePrice($figi): float 
+    {
+        $allBuy = $this->redis::hGetAll("BUY:$figi");
+        foreach($allBuy as $price => $count){
+            $sum[] = $price*$count;
+        }
+        dd($sum);
+    }
 }
