@@ -37,7 +37,9 @@ provide('status', status)
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Акции
                                 </NavLink>
-
+                                <NavLink :href="route('hour-trade')" :active="route().current('hour-trade')">
+                                    Сделки часа
+                                </NavLink>
                             </div>
 
                         </div>

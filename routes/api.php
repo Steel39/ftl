@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('setStocks', [SharesController::class, 'store']);
 Route::get('showStocks', [SharesController::class, 'show']);
 Route::get('getStream', [SharesController::class, 'getStream']);

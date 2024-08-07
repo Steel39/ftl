@@ -30,7 +30,7 @@
                 </button>
                 <div class="bg-gray-950 rounded-md py-1 basis-1/2 text-center">
                     <span class="font-sans text-xl text-cyan-300">
-                        {{ dataStocks.time }}
+                        {{ dataStocks.time }} - {{ dataStocks.lastTimeTrade }}
                     </span>
                 </div>
                 <button @click="getStream" class="bg-lime-400 hover:bg-slate-400 active:shadow-none
@@ -82,6 +82,7 @@ export default {
         const shares = ref([])
         const dataStocks = ref([])
         const tradesData = ref([])
+        const count = ref([])
 
 
 
@@ -114,8 +115,8 @@ export default {
         function showStocks() {
             axios.get('api/showStocks')
                 .then(response => {
-                    dataStocks.value = response.data
-                    this.status = `Обновлено`
+                    this.dataStocks = response.data
+                    this.status = `Обновлено: ${dataStocks.value.length}`
                     console.log(dataStocks)
                 })
                 .catch((error) => { alert(`Error ${error.message}`) })
@@ -142,9 +143,11 @@ export default {
             this.status = "Получаем данные..."
             axios.get('api/getTradesData')
                 .then(response => {
-                    dataStocks.value = response.data
-                    this.status = `Получено объектов: ${dataStocks.value.length}`
-                    console.log(dataStocks)
+                    this.dataStocks = response.data
+                    this.count = Object.keys(this.dataStocks.trades).length
+                    this.status = `Обновлено: ${this.count}`;
+                    console.log(this.dataStocks.trades
+                    )
                 })
         }
         function destroyHashMemory() {
@@ -158,6 +161,7 @@ export default {
 
         return {
             load,
+            count,
             setStocks,
             showStocks,
             destroy,

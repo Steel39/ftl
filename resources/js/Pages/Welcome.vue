@@ -30,8 +30,13 @@ defineProps({
             <Link
                 v-if="$page.props.auth.user"
                 :href="route('dashboard')"
-                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:shadow focus:shadow-md focus:rounded-sm focus:shadow-blue-400"
+                class="font-semibold px-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:shadow focus:shadow-md focus:rounded-sm focus:shadow-blue-400"
                 >Панель управления</Link>
+                <Link
+                v-if="$page.props.auth.user"
+                :href="route('hour-trade')"
+                class="font-semibold px-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:shadow focus:shadow-md focus:rounded-sm focus:shadow-blue-400"
+                >Сделки за час</Link>
 
             <template v-else>
                 <Link

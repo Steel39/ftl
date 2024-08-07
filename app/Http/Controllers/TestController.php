@@ -16,7 +16,7 @@ class TestController extends Controller
 
     }
     
-    public function __invoke()
+    public function test()
     {
        $test =  $this->query->getTradeVolumes();
        dd($test);

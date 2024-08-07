@@ -13,8 +13,8 @@ class TradeDataHandler
 {
     public function __construct(
         private readonly Redis $redis,
-        private readonly Color $color)
-    {
+        private readonly Color $color
+    ) {
 
     }
 
@@ -23,38 +23,52 @@ class TradeDataHandler
      */
     public function setDataTrade(Trade $trade): void
     {
-        
-        if($trade->getDirection() === 1) {
+
+        if ($trade->getDirection() === 1) {
             $figi = $trade->getFigi();
             $price = QuotationHelper::toDecimal($trade->getPrice());
             $hashCount = $this->redis::hGet("BUY:$figi", $price);
             $count = $trade->getQuantity() + $hashCount;
             $this->redis::hMSet("BUY:$figi", $price, $count);
         }
-        if($trade->getDirection() === 2) {
+        if ($trade->getDirection() === 2) {
             $figi = $trade->getFigi();
             $price = QuotationHelper::toDecimal($trade->getPrice());
             $hashCount = $this->redis::hGet("SELL:$figi", $price);
             $count = $trade->getQuantity() + $hashCount;
             $this->redis::hSet("SELL:$figi", $price, $count);
         }
-        if(empty($this->redis::get("startPrice:$figi"))){
+        if (empty($this->redis::get("startPrice:$figi"))) {
             $this->redis::set("startPrice:$figi", $price);
         }
         $this->redis::set("endPrice:$figi", $price);
-        
+        $lastTimeTrade = date('h:i:s');
+        $this->redis::set('lastTimeTrade', $lastTimeTrade);
     }
 
-    public function getTimeStartStream(): ?string 
+    public function getTimeStartStream(): string
     {
+        if (empty($this->redis::get('StartStream'))) {
+            return "Стрим еще не начат";
+        }
         return $this->redis::get('StartStream');
     }
+
+    public function getTimeLastTrade(): string
+    {
+        $lastTimeTrade = $this->redis::get('lastTimeTrade');
+        if (empty($lastTimeTrade)) {
+            return "Нет последней сделки";
+        }
+        return $lastTimeTrade;
+    }
+
 
     public function getDataTrade(string $figi): array
     {
         $buy = $this->redis::hGetAll("BUY:$figi");
         $sell = $this->redis::hGetAll("SELL:$figi");
-        
+
         $trades['name'] = ShareAttributes::figiToName($figi);
         $trades['ticker'] = ShareAttributes::figiToTicker($figi);
         $trades['allBuy'] = array_sum($buy);
@@ -72,9 +86,10 @@ class TradeDataHandler
     {
         $tradeVolumes = [];
         $keys = DB::table('shares')->select('figi', 'ticker')->get()->toArray();
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             $tradeData = $this->getDataTrade($key->figi);
-            if(empty($tradeData['allBuy']) && empty($tradeData['allSell'])) continue;
+            if (empty($tradeData['allBuy']) && empty($tradeData['allSell']))
+                continue;
             $tradeVolumes[$key->figi] = $this->getDataTrade($key->figi);
         }
         return $tradeVolumes;
@@ -85,8 +100,8 @@ class TradeDataHandler
         $startPrice = Redis::get("startPrice:$figi");
         $endPrice = Redis::get("endPrice:$figi");
         $diff = 0;
-        if(!empty($startPrice) && !empty($endPrice)) {
-            $diff = ($endPrice - $startPrice)/(($startPrice + $endPrice)/2)*100;
+        if (!empty($startPrice) && !empty($endPrice)) {
+            $diff = ($endPrice - $startPrice) / (($startPrice + $endPrice) / 2) * 100;
         }
         return round($diff, 2);
     }

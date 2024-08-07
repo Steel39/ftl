@@ -49,6 +49,7 @@ class SharesController extends Controller
     {
         $data['trades'] = $this->tradeDataHandler->getTradeVolumes(); 
         $data['time'] = $this->tradeDataHandler->getTimeStartStream();
+        $data['lastTimeTrade'] = $this->tradeDataHandler->getTimeLastTrade();
         return $data;
     }
 
@@ -65,8 +66,8 @@ class SharesController extends Controller
         return $status;
     }
 
-    public function getStream() 
+    public function getStream() : string
     {
-        $this->stream->getStreamTradesShares();
+        return $this->stream->getStreamTradesShares();
     }
 }
