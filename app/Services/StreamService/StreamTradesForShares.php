@@ -28,7 +28,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
     public function __construct(InstrumentsRequest $instrumentsRequest,
                                 MarketDataRequest $marketDataRequest,
                                 SubscribeTradesRequest $subscribeTradesRequest,
-                                Redis $redis, 
+                                Redis $redis,
                                 TradeDataHandler $tradeDataHandler)
     {
         $this->instrumentsRequest = $instrumentsRequest;
@@ -49,8 +49,6 @@ final class StreamTradesForShares extends TinkoffApiConnectService
             if ($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
                 $item = (new TradeInstrument())->setFigi($instrument->getFigi());
                 $this->tradeInstruments[] = $item;
-                echo $instrument->getName() . PHP_EOL;
-                
             }
         }
 
@@ -67,7 +65,6 @@ final class StreamTradesForShares extends TinkoffApiConnectService
         $this->redis::set('StartStream', date('h:i:s'));
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
-                echo $trades->getFigi(); 
                 $this->tradeDataHandler->setDataTrade($trades);
             }
         }

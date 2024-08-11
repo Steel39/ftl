@@ -32,6 +32,9 @@ RUN pecl install redis && docker-php-ext-enable redis
 # Add user for laravel application
 RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 
+RUN composer install
+RUN php artisan key:generate
+
 # Change current user to www
 USER www
 

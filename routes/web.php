@@ -33,8 +33,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/hour-trade', 'App\Http\Controllers\LastTradeController'::class)->name('hour-trade');
-});  
+    Route::get('/hour-trade', 'App\Http\Controllers\LastTradeController')->name('hour-trade');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

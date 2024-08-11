@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl
 
+RUN mkdir "node_modules"
 #install tailwind
 
 # Change current user

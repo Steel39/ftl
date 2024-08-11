@@ -26,14 +26,14 @@ class SharesController extends Controller
         return $this->data;
     }
 
-    public function store() : string 
+    public function store() : string
     {
         $data = $this->service->getAllInstruments();
         $this->service->setShares($data);
         return 'Акции успешно загружены с сервера Т в базу данных';
     }
 
-    public function destroy() : string 
+    public function destroy() : string
     {
         DB::table('shares')->delete();
         return 'Акции удалены из базы данных';
@@ -47,7 +47,7 @@ class SharesController extends Controller
     }
     public function getTradesData(): ?array
     {
-        $data['trades'] = $this->tradeDataHandler->getTradeVolumes(); 
+        $data['trades'] = $this->tradeDataHandler->getTradeVolumes();
         $data['time'] = $this->tradeDataHandler->getTimeStartStream();
         $data['lastTimeTrade'] = $this->tradeDataHandler->getTimeLastTrade();
         return $data;
