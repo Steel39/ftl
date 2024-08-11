@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 #install tailwind
 # Change current user
-USER node
+USER www-data
 EXPOSE 5173
 
 # https://github.com/vitejs/vite/discussions/3396
