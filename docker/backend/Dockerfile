@@ -34,7 +34,6 @@ RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 
 
 RUN mkdir "vendor"
-RUN php artisan key:generate
 
 # Change current user to www
 USER www
