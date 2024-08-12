@@ -53,17 +53,20 @@ class SharesController extends Controller
         return $data;
     }
 
-    public function destroyHashMemory(): string
+    public function destroyHashMemory(): array
     {
         $status = 'Статус: неопределено';
+        $time = date('H:i:s');
         $flushall = Redis::flushall();
         if($flushall == 1) {
             $status = 'Очищено';
+            $time = date('H:i:s');
         }
         if($flushall == 0) {
             $status = 'Что-то пошло не так';
         }
-        return $status;
+        return ['status' => $status,
+                'time' =>  $time];
     }
 
     public function getStream() : string
