@@ -44,7 +44,7 @@
         </header>
         <div class="grid md:grid-cols-8 grid-cols-3 gap-4 py-10">
             <div v-for="data in dataStocks.trades">
-                    <button :class="`shadow-xl  active:shadow-inner hover:bg-black shadow-red-500 my-2 h-32 w-32 px-5 bg-gradient-to-bl
+                    <button :class="`shadow-xl  active:shadow-inner hover:bg-black shadow-red-300 my-2 h-32 w-32 px-5 bg-gradient-to-bl
                        from-zinc-800  to-slate-700 border-spacing-10 rounded-md`">
                     <p class="font-semibold  mx-auto"><i class="font-semibold text-blue-400 ">
                             {{ data.ticker }}</i></p>

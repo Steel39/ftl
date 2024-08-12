@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 #install tailwind
 # Change current user
 RUN groupadd -g 1001 www-data && useradd -u 1001 -ms /bin/bash -g www-data www-data
-USER www-data
+USER 1001
 EXPOSE 5173
 
 # https://github.com/vitejs/vite/discussions/3396
