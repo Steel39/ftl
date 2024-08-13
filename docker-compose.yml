@@ -96,8 +96,8 @@ services:
     # и снова мониторуем директорию nginx
     volumes:
       - ./docker/nginx/:/etc/nginx/
-      - ./nginx/cert.pem:/etc/cert.pem
-      - ./nginx/key.pem:/etc/key.pem
+      - ./docker/nginx/cert.pem:/etc/cert.pem
+      - ./docker/nginx/key.pem:/etc/key.pem
     build:
       context: ./docker/certbot/
       dockerfile: Dockerfile
