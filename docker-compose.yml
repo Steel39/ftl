@@ -106,3 +106,5 @@ services:
         DOMAIN_EMAIL: ${DOMAIN_EMAIL}
         DOMAIN_URL: ${DOMAIN_URL}
     container_name: certbot
+    depends_on:
+      - nginx
