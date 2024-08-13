@@ -28,12 +28,9 @@ services:
     tty: true
     ports:
       - "80:80" # Внутренний порт контейнера пробрасываем на host машину
-      - "443:443"
     volumes:
       - .:/var/www # Монтируем локальную папку в контейнер как /var/www
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/ # Передаем в контейнер конфигурационные файлы nginx
-      - ./nginx/cert.pem:/etc/cert.pem
-      - ./nginx/key.pem:/etc/key.pem
     depends_on:
       - backend
     container_name: nginx

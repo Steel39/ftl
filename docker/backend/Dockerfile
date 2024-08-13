@@ -37,4 +37,3 @@ USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-CMD ["php-fpm", "php artisan key:generate", "composer install"]
