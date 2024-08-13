@@ -1,4 +1,3 @@
-
 FROM ubuntu:22.04
 
 EXPOSE 6000 80
@@ -19,5 +18,4 @@ RUN apt-get update
 RUN apt-get -y install certbot
 
 # запускаем скрипт генерации
-CMD ["sh"]     
-#"generate-certificate.sh"
+CMD ["sh", "generate-certificate.sh"]
