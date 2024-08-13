@@ -96,10 +96,13 @@ services:
     # и снова мониторуем директорию nginx
     volumes:
       - ./docker/nginx/:/etc/nginx/
+      - ./nginx/cert.pem:/etc/cert.pem
+      - ./nginx/key.pem:/etc/key.pem
     build:
-      context: ./docker/certbot/
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/certbot/Dockerfile
       # задаем переменные среды
       args:
         DOMAIN_EMAIL: ${DOMAIN_EMAIL}
         DOMAIN_URL: ${DOMAIN_URL}
+    container_name: certbot
