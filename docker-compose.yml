@@ -99,8 +99,8 @@ services:
       - ./nginx/cert.pem:/etc/cert.pem
       - ./nginx/key.pem:/etc/key.pem
     build:
-      context: .
-      dockerfile: ./docker/certbot/Dockerfile
+      context: ./docker/certbot/
+      dockerfile: Dockerfile
       # задаем переменные среды
       args:
         DOMAIN_EMAIL: ${DOMAIN_EMAIL}
