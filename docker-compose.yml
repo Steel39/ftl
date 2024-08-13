@@ -87,24 +87,3 @@ services:
     container_name: redis
     depends_on:
       - db
-
-  certbot:
-    ports:
-      - "6000:80"
-    env_file:
-      - ./.env
-    # и снова мониторуем директорию nginx
-    volumes:
-      - ./docker/nginx/:/etc/nginx/
-      - ./docker/nginx/cert.pem:/etc/cert.pem
-      - ./docker/nginx/key.pem:/etc/key.pem
-    build:
-      context: ./docker/certbot/
-      dockerfile: Dockerfile
-      # задаем переменные среды
-      args:
-        DOMAIN_EMAIL: ${DOMAIN_EMAIL}
-        DOMAIN_URL: ${DOMAIN_URL}
-    container_name: certbot
-    depends_on:
-      - nginx
