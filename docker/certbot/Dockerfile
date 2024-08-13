@@ -19,3 +19,4 @@ RUN apt-get -y install certbot
 
 # запускаем скрипт генерации
 CMD ["sh", "generate-certificate.sh"]
+
