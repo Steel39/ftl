@@ -24,8 +24,8 @@ defineProps({
 
     <div class="conteiner absolute top-0 w-[100%] min-h-screen h-auto
     fixed bg-gray-100 dark:bg-gray-900">
-        
-        
+
+
         <div v-if="canLogin" class="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
             <Link
                 v-if="$page.props.auth.user"
@@ -44,17 +44,12 @@ defineProps({
                     class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
                     >Log in</Link
                 >
-
-                <Link
-                    v-if="canRegister"
-                    :href="route('register')"
-                    class="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                    >Register</Link
-                >
             </template>
         </div>
 
-        
+
+
+
     </div>
 </template>
 
