@@ -23,7 +23,7 @@ export default {
     return {
       trades,
       getTrades,
-      ticker: 'RUAL'
+      ticker: 'RUA1L'
     }
   }
 }

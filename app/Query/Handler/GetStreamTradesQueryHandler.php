@@ -24,7 +24,7 @@ class GetStreamTradesQueryHandler
         private readonly InstrumentsRequest $instrumentsRequest,
         private readonly SubscribeTradesRequest $subscribeTradesRequest,
         private readonly MarketDataRequest $marketDataRequest,
-        private readonly TradeDataHandler $tradeDataHanler,
+        private readonly TradeDataHandler $tradeDataHandler,
     ) {
 
     }
@@ -48,7 +48,7 @@ class GetStreamTradesQueryHandler
 
         while($mareketDataResponse = $stream->read()){
             if($trade = $mareketDataResponse->getTrade());
-                $this->tradeDataHanler->setDataTrade($trade);
+                $this->tradeDataHandler->setDataTrade($trade);
         }
         $stream->cancel();
         Log::info('End Stream: '. date('h:i:s'));

@@ -42,8 +42,9 @@ final class StreamTradesForShares extends TinkoffApiConnectService
     {
         [$response, $status] = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
-            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_ALL))
+            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_BASE))
             ->wait();
+        //dd($response, $status);
         $instruments = $response->getInstruments();
         foreach ($instruments as $instrument) {
             if ($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
