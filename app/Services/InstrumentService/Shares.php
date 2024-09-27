@@ -26,7 +26,7 @@ class Shares extends TinkoffApiConnectService
     {
         list($response, $status) = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
-            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_ALL))
+            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_BASE))
             ->wait();
         $repeatedField = $response->getInstruments();
         foreach ($repeatedField as $share) {

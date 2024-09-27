@@ -35,7 +35,7 @@ class StreamOrderBook extends TinkoffApiConnectService
     {
         list($response) = $this->getFactoryForClientTinkoffApiService()
             ->instrumentsServiceClient
-            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_ALL))
+            ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_BASE))
             ->wait();
         $instruments = $response->getInstruments();
         foreach ($instruments as $instrument) {
