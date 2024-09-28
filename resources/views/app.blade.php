@@ -35,7 +35,7 @@
     </head>
 
     <body class="conteiner absolute top-0 w-[100%] min-h-screen h-auto
-    fixed bg-gradient-to-br  from-slate-700 to-zinc-800">
+    fixed bg-gradient-to-br  from-slate-500 to-zinc-500">
         @inertia
     </body>
 </html>

@@ -44,7 +44,6 @@ final class StreamTradesForShares extends TinkoffApiConnectService
             ->instrumentsServiceClient
             ->Shares($this->instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_BASE))
             ->wait();
-        //dd($response, $status);
         $instruments = $response->getInstruments();
         foreach ($instruments as $instrument) {
             if ($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
@@ -63,7 +62,7 @@ final class StreamTradesForShares extends TinkoffApiConnectService
             );
         $stream = $this->getFactoryForClientTinkoffApiService()->marketDataStreamServiceClient->MarketDataStream();
         $stream->write($this->subscription);
-        $this->redis::set('StartStream', date('h:i:s'));
+        $this->redis::set('StartStream', date('H:i:s'));
         while($marketDataResponse = $stream->read()) {
             if ($trades = $marketDataResponse->getTrade()) {
                 $this->tradeDataHandler->setDataTrade($trades);

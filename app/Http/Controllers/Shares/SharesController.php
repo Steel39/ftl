@@ -57,10 +57,11 @@ class SharesController extends Controller
     {
         $status = 'Статус: неопределено';
         $time = date('H:i:s');
+        
         $flushall = Redis::flushall();
         if($flushall == 1) {
             $status = 'Очищено';
-            $time = date('H:i:s');
+            Redis::set('StartStream', $time );
         }
         if($flushall == 0) {
             $status = 'Что-то пошло не так';

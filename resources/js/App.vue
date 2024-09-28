@@ -1,4 +1,4 @@
-<template class="bg-white">
+<template class="bg-black">
   <header class="w-full bg-blue-300 h-auto bg-gradient-to-tl fixed">
     <div class="px-8 sm:px-6 lg:px-8 py-2 ">
 

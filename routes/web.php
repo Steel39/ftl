@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Shares\LastTradesController;
+use App\Http\Controllers\Shares\GuestSharesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use Illuminate\Foundation\Application;
@@ -21,8 +22,6 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 })->name('home');
 
@@ -44,3 +43,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/test', [TestController::class, 'test']);
 
 require __DIR__.'/auth.php';
+
+Route::get('/guest_shares_info', 'App\Http\Controllers\Shares\GuestSharesController')->name('guestShares');

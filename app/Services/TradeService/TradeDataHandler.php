@@ -42,7 +42,7 @@ class TradeDataHandler
             $this->redis::set("startPrice:$figi", $price);
         }
         $this->redis::set("endPrice:$figi", $price);
-        $lastTimeTrade = date('h:i:s');
+        $lastTimeTrade = date('H:i:s');
         $this->redis::set('lastTimeTrade', $lastTimeTrade);
     }
 
