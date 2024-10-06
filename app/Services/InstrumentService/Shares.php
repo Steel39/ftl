@@ -21,7 +21,7 @@ class Shares extends TinkoffApiConnectService
         $this->instrumentsRequest = $instrumentsRequest;
     }
 
-    
+
     public function getAllInstruments(): array
     {
         list($response, $status) = $this->getFactoryForClientTinkoffApiService()
@@ -41,7 +41,7 @@ class Shares extends TinkoffApiConnectService
         $instruments = $this->getAllInstruments();
         foreach($instruments as $instrument) {
             if($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 5) {
-                
+
                 $this->moexSharesActive[] = $instrument;
             }
         }
@@ -53,7 +53,7 @@ class Shares extends TinkoffApiConnectService
         $instruments = $this->getAllInstruments();
         foreach($instruments as $instrument) {
             if($instrument->getCountryOfRisk() === 'RU' && $instrument->getTradingStatus() === 14) {
-                
+
                 $this->moexSharesActive[] = $instrument;
             }
         }

@@ -7,7 +7,7 @@
                  text-gray-800 font-semibold py-2 px-4 rounded-md shadow-md shadow-gray-100">
                         Обновить
                     </button>
-                    <div class="ml-5 mr-5  bg-gray-950 rounded-md mt-5 py-1 basis-1/2 text-center">
+                    <div class="ml-5 mr-5  bg-black rounded-md mt-5 py-1 basis-1/2 text-center">
                         <span class="font-sans text-xl text-cyan-300">
                             {{ dataStocks.time }} - {{ dataStocks.lastTimeTrade }}
                         </span>
@@ -17,7 +17,7 @@
 
                 </div>
             </header>
-            <div class="grid md:grid-cols-8 grid-cols-3 gap-4 py-10">
+            <div class="grid md:grid-cols-8 grid-cols-3 gap-4 px-10 py-10">
                 <div v-for="data in dataStocks.trades">
                     <button :class="`shadow-xl  active:shadow-inner hover:bg-black shadow-${data.color}-${data.intense} my-2 h-32 w-32 px-5 bg-gradient-to-bl
                        from-zinc-800  to-slate-700 border-spacing-10 rounded-md`">
