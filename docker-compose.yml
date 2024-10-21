@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
       - redis
-    container_name: back
+    container_name: "${BACKEND_CONTAINER_NAME}"
 
   # Nginx контейнер для вебсервера
   nginx:
@@ -42,18 +42,23 @@ services:
     tty: true
     ports:
       - "${DB_PORT}:3306"
-    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', ]
+    command: ['--character-set-server=utf8mb4',
+              '--collation-server=utf8mb4_unicode_ci',
+              '--default-authentication-plugin=mysql_native_password' ]
     environment:
       # Желаемые настройки для СУБД MySQL
+      SERVICE_TAGS: dev
+      SERVICE_NAME: "${DB_CONTAINER_NAME}"
+      MYSQL_USER: "${DB_USERNAME}"
       MYSQL_DATABASE: "${DB_DATABASE}"
-      MYSQL_USERNAME: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
     volumes:
       - ./db/mysql:/var/lib/mysql-files  # Используем именованный том из блока volumes
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf # Передаем в контейнер конфигурационный файл
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping" ]
-    container_name: db
+    container_name: "${DB_CONTAINER_NAME}"
 
   # Для сборки js
   node:
@@ -66,7 +71,7 @@ services:
     working_dir: /var/www
     volumes:
         - .:/var/www # Монтируем локальную папку в контейнер как /var/www
-    container_name: front
+    container_name: "${FRONTEND_CONTAINER_NAME}"
 
   # Redis контейнер
   redis:

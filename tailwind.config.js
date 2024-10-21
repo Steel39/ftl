@@ -56,9 +56,7 @@ export default {
     },
   },
   plugins: [
-    require('flowbite/plugin')({
-      chatrs: true,
-    })
+    
   ],
 }
 
